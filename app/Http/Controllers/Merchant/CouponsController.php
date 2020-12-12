@@ -56,16 +56,26 @@ class CouponsController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param Coupon $coupon
+     * @return JsonResponse
+     */
+    public function show(Coupon $coupon): JsonResponse
+    {
+        return custom_response(CouponResource::make($coupon));
+    }
+
+    /**
      * @param CouponRequest $request
-     * @param int $coupon
+     * @param Coupon $coupon
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function update(CouponRequest $request, int $coupon)
+    public function update(CouponRequest $request, Coupon $coupon)
     {
         $data = $request->validated();
 
-        $coupon = Coupon::find($coupon);
         $coupon->prefix = $data['prefix'];
         $coupon->quantity = $data['quantity'];
         $coupon->start_number = $data['start_number'];

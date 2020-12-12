@@ -3,6 +3,8 @@
 use App\Http\Controllers\Merchant\AuthorizationsController;
 use App\Http\Controllers\Merchant\CouponsController;
 use App\Http\Controllers\Merchant\CouponsItemsController;
+use App\Http\Controllers\Merchant\LogisticsCompaniesController;
+use App\Http\Controllers\Merchant\OrdersController;
 use App\Http\Controllers\Merchant\ProductsController;
 use App\Http\Controllers\Merchant\UploadController;
 use App\Http\Controllers\Merchant\UsersController;
@@ -38,5 +40,8 @@ Route::middleware('auth:api')->group(function() {
     Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index'])->name('coupons.index');
     Route::resource('products', ProductsController::class);
     Route::patch('coupons/{coupon}/item', [CouponsItemsController::class, 'update'])->name('coupons.item.update');
-    Route::post('upload_image', [UploadController::class, 'store'])->name('store');
+    Route::resource('logistics-companies', LogisticsCompaniesController::class);
+    Route::resource('orders', OrdersController::class);
+    Route::patch('orders/{order}/shipment', [OrdersController::class, 'ship'])->name('orders.shipment');
+    Route::post('upload-image', [UploadController::class, 'store'])->name('store');
 });

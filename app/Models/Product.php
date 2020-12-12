@@ -28,4 +28,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends BaseModel
 {
     use HasFactory;
+
+    protected $casts = ['carousel' => 'array'];
 }

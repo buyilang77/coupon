@@ -17,14 +17,16 @@ class CreateCouponsTable extends Migration
             $table->id();
             $table->bigInteger('merchant_id')->index();
             $table->json('products');
-            $table->string('title')->index();
+            $table->string('title')->comment('活动名称')->index();
+            $table->string('services_phone', 15)->comment('客服电话');
+            $table->string('activity_description')->comment('活动说明');
             $table->date('start_time');
             $table->date('end_time');
             $table->string('prefix')->comment('前缀');
             $table->string('start_number')->comment('起始编号');
-            $table->mediumInteger('quantity')->comment('卡卷数量');
-            $table->bigInteger('length')->comment('卡卷长度');
-            $table->tinyInteger('status')->comment('默认状态 0:未启用, 1:启用, 3:已结束');
+            $table->mediumInteger('quantity')->comment('卡券数量');
+            $table->bigInteger('length')->comment('卡券长度');
+            $table->tinyInteger('status')->comment('默认状态 0:未启用, 1:启用, 3:已结束')->index();
             $table->timestamps();
         });
     }

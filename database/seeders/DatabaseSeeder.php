@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MerchantSeeder::class,
             SystemDomainSeeder::class,
+            LogisticsCompanySeeder::class,
             ProductSeeder::class,
             CouponSeeder::class,
             CouponItemSeeder::class,
+            OrderSeeder::class,
         ]);
     }
 }

@@ -26,6 +26,17 @@ class MerchantSeeder extends Seeder
                 'created_at'    => '2020-10-27 14:52:46',
                 'updated_at'    => '2020-10-27 14:52:46',
             ],
+            [
+                'username'      => 'snail-xian',
+                'surname'       => '蜗牛',
+                'merchant_name' => '西安蜗牛',
+                'phone'         => '18529536820',
+                'password'      => '$2y$10$tYa1pOCDSxWvb5j.e1QQRuGPtDyu0TlRTMn/0bs.VnoKWJiyOzCNy',
+                'region'        => '["610000","610100","610113"]',
+                'address'       => '高新一路',
+                'created_at'    => '2020-10-27 14:52:46',
+                'updated_at'    => '2020-10-27 14:52:46',
+            ],
         ]);
     }
 }

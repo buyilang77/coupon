@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\CouponItem
@@ -41,4 +42,12 @@ class CouponItem extends BaseModel
     public const TYPE_SINGLE = 1;
     // 批量更新
     public const TYPE_BATCH = 2;
+
+    /**
+     * @return BelongsTo
+     */
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
+    }
 }

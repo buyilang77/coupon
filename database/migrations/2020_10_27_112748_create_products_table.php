@@ -17,7 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->bigInteger('merchant_id')->index();
             $table->string('name')->index();
-            $table->text('description');
+            $table->decimal('price');
+            $table->json('carousel')->nullable();
+            $table->mediumText('description');
             $table->timestamps();
         });
     }

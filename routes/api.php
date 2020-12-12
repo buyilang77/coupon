@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,3 +10,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+use App\Http\Controllers\Frontend\CouponsController;
+use App\Http\Controllers\Frontend\InformationController;
+use App\Http\Controllers\Frontend\OrdersController;
+
+Route::get('coupons/{coupon}', [CouponsController::class, 'show']);
+Route::post('orders', [OrdersController::class, 'store']);
+Route::get('merchant/information/{coupon}', [InformationController::class, 'merchant']);

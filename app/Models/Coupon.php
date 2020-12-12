@@ -48,6 +48,9 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\CouponItem|null $item
+ * @property array $products
+ * @property-read int|null $item_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereProducts($value)
  */
 class Coupon extends BaseModel
 {
@@ -61,5 +64,21 @@ class Coupon extends BaseModel
     public function item(): HasMany
     {
         return $this->hasMany(CouponItem::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function order(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function merchant(): BelongsTo
+    {
+        return $this->belongsTo(Merchant::class);
     }
 }

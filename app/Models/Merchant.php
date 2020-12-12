@@ -41,6 +41,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|Merchant whereSurname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Merchant whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $username 用户名
+ * @property array|null $region 地区
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $order
+ * @property-read int|null $order_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $product
+ * @property-read int|null $product_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Merchant whereRegion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Merchant whereUsername($value)
  */
 class Merchant extends Authenticatable implements JWTSubject
 {
@@ -87,6 +95,14 @@ class Merchant extends Authenticatable implements JWTSubject
     public function product(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function order(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     /**
