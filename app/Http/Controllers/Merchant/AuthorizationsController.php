@@ -33,7 +33,7 @@ class AuthorizationsController extends Controller
 
     public function destroy()
     {
-        Auth::guard('merchant')->logout();
+        Auth::logout();
         return response(null, 204);
     }
 }

@@ -25,12 +25,18 @@ class Controller extends BaseController
     public $perPage;
 
     /**
+     * @var string $guard
+     */
+    public $guard;
+
+    /**
      * Controller constructor.
      * @param Request $request
      */
     public function __construct(Request $request)
     {
-        Auth()->shouldUse('merchant');
+        $this->guard = $request->get('guard');
+        Auth()->shouldUse($this->guard);
         $this->perPage = $request->limit ?? 15;
     }
 
@@ -51,7 +57,7 @@ class Controller extends BaseController
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'expires_in' => auth('merchant')->factory()->getTTL() * 60
+            'expires_in' => Auth::factory()->getTTL() * 60
         ]);
     }
 }
