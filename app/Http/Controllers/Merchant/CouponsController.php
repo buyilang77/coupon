@@ -120,7 +120,7 @@ class CouponsController extends Controller
      */
     public function generateCoupon(
         int $coupon_id,
-        string $prefix,
+        ?string $prefix,
         int $quantity,
         int $start_number,
         int $length,

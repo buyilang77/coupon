@@ -30,7 +30,7 @@ class CouponRequest extends FormRequest
             'products'             => 'required|array',
             'start_time'           => 'required|date',
             'end_time'             => 'required|date',
-            'prefix'               => 'required|string|max:15',
+            'prefix'               => 'string|max:15|nullable',
             'start_number'         => 'required|integer|max:10000000000000000',
             'quantity'             => 'required|integer|max:100000',
             'length'               => 'required|integer|max:20',
