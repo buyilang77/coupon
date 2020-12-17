@@ -24,6 +24,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $price
+ * @property array|null $carousel
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCarousel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
  */
 class Product extends BaseModel
 {

@@ -37,6 +37,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $logistics_company_id 物流公司ID
+ * @property string|null $tracking_number 物流单号
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereLogisticsCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereTrackingNumber($value)
  */
 class Order extends BaseModel
 {

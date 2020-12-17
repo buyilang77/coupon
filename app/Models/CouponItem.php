@@ -27,6 +27,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|CouponItem whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CouponItem whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $open_status 状态 0:未开启, 1:已开启
+ * @property int $redemption_status 状态 0:未兑换, 1:已兑换
+ * @property-read \App\Models\Coupon $coupon
+ * @property-read mixed $open_status_text
+ * @method static \Illuminate\Database\Eloquent\Builder|CouponItem whereOpenStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CouponItem whereRedemptionStatus($value)
  */
 class CouponItem extends BaseModel
 {
@@ -36,12 +42,11 @@ class CouponItem extends BaseModel
     public const STATUS_DISABLE = 0;
     // 开启
     public const STATUS_ENABLE = 1;
-    // 已使用
-    public const STATUS_ACTIVATED = 2;
-    // 单记录更新
-    public const TYPE_SINGLE = 1;
-    // 批量更新
-    public const TYPE_BATCH = 2;
+    // 已兑换
+    public const STATUS_ACTIVATED = 1;
+
+    private static array $openStatus = ['未开启', '已开启'];
+    private static array $redemptionStatus = ['未兑换', '已兑换'];
 
     /**
      * @return BelongsTo
@@ -49,5 +54,23 @@ class CouponItem extends BaseModel
     public function coupon(): BelongsTo
     {
         return $this->belongsTo(Coupon::class);
+    }
+
+    /**
+     * Return to open status text.
+     * @return string
+     */
+    public function getOpenStatusTextAttribute(): string
+    {
+        return self::$openStatus[$this->open_status];
+    }
+
+    /**
+     * Return to redemption status text.
+     * @return string
+     */
+    public function getRedemptionStatusTextAttribute(): string
+    {
+        return self::$redemptionStatus[$this->redemption_status];
     }
 }

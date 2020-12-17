@@ -51,6 +51,13 @@ use Illuminate\Support\Facades\Storage;
  * @property array $products
  * @property-read int|null $item_count
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereProducts($value)
+ * @property string $services_phone 客服电话
+ * @property string $activity_description 活动说明
+ * @property-read \App\Models\Merchant $merchant
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $order
+ * @property-read int|null $order_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereActivityDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereServicesPhone($value)
  */
 class Coupon extends BaseModel
 {
