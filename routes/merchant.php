@@ -39,7 +39,8 @@ Route::middleware('auth:api')->group(function() {
     Route::resource('coupons', CouponsController::class);
     Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index'])->name('coupons.index');
     Route::resource('products', ProductsController::class);
-    Route::patch('coupons/{coupon}/item', [CouponsItemsController::class, 'update'])->name('coupons.item.update');
+    Route::patch('coupons/items/bulk-update', [CouponsItemsController::class, 'bulkUpdate']);
+    Route::patch('coupons/items/{item}', [CouponsItemsController::class, 'update']);
     Route::resource('logistics-companies', LogisticsCompaniesController::class);
     Route::resource('orders', OrdersController::class);
     Route::patch('orders/{order}/shipment', [OrdersController::class, 'ship'])->name('orders.shipment');
