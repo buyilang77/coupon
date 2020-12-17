@@ -29,10 +29,17 @@ class OrdersController extends Controller
         if (!$item instanceof CouponItem) {
             return custom_response(null, '107')->setStatusCode(403);
         }
+        if ($item->open_status === CouponItem::STATUS_DISABLE) {
+            return custom_response(null, '109')->setStatusCode(403);
+        }
+        if ($item->redemption_status === CouponItem::STATUS_ACTIVATED) {
+            return custom_response(null, '110')->setStatusCode(403);
+        }
         $data['merchant_id'] = $item->coupon->merchant->id;
         $data['coupon_id'] = $item->coupon_id;
         Order::create($data);
-        $item->status = CouponItem::STATUS_ACTIVATED;
+
+        $item->redemption_status = CouponItem::STATUS_ACTIVATED;
         $item->update();
         return custom_response(null, '108');
     }
