@@ -17,6 +17,6 @@ class UploadController extends Controller
     {
         $date = date('Y-m-d');
         $image = $request->file('file')->store('public/merchant/merchant_' . auth()->id() . '/' . $date);
-        return custom_response(['path' => env('APP_URL') . Storage::url($image)]);
+        return custom_response(['path' => config('domain.merchant-api') . Storage::url($image)]);
     }
 }
