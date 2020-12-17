@@ -16,9 +16,10 @@ class CreateCouponItemsTable extends Migration
         Schema::create('coupon_items', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('coupon_id')->index();
-            $table->string('code');
+            $table->string('code')->index();
             $table->string('password');
-            $table->tinyInteger('status')->default(0)->comment('状态 0:未开启, 1:未兑换, 2:已兑换');
+            $table->tinyInteger('open_status')->default(0)->comment('状态 0:未开启, 1:已开启')->index();
+            $table->tinyInteger('redemption_status')->default(0)->comment('状态 0:未兑换, 1:已兑换')->index();
             $table->timestamps();
         });
     }

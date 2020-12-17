@@ -16,12 +16,12 @@ class SystemDomainSeeder extends Seeder
     {
         SystemDomain::insert([
             [
-                'type' => 'merchant',
-                'domain' => 'api.merchant.coupon.com',
+                'type' => 'merchant-api',
+                'domain' => 'api.merchant.hipi5.com',
             ],
             [
-                'type' => 'admin',
-                'domain' => 'api.admin.coupon.com',
+                'type' => 'admin-api',
+                'domain' => 'api.admin.hipi5.com',
             ],
         ]);
     }
