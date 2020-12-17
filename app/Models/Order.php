@@ -58,4 +58,12 @@ class Order extends BaseModel
     {
         return $this->belongsTo(Coupon::class);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function logisticsCompany(): BelongsTo
+    {
+        return $this->belongsTo(LogisticsCompany::class);
+    }
 }
