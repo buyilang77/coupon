@@ -16,7 +16,7 @@ class CouponItemResource extends JsonResource
     {
         return [
             'id'                     => $this->resource->id,
-            'qr_code_link'           => config('domain.h5') . '/#/coupons/' . $this->resource->coupon->id,
+            'qr_code_link'           => config('domain.front-end-h5') . '/#/coupons/' . $this->resource->coupon->id,
             'code'                   => $this->resource->code,
             'password'               => $this->resource->password,
             'open_status'            => $this->resource->open_status,
