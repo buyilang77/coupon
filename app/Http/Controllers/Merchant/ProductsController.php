@@ -16,7 +16,10 @@ class ProductsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = QueryBuilder::for(Product::class)->orderByDesc('id')->allowedFilters(['title'])->paginate($this->perPage);
+        $data = QueryBuilder::for($this->user()->product())
+            ->orderByDesc('id')
+            ->allowedFilters(['title'])
+            ->paginate($this->perPage);
         return custom_response($data);
     }
 
