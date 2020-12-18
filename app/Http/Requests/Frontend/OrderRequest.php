@@ -24,6 +24,7 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
+            'coupon_id' => 'required|integer|exist:coupons',
             'consignee' => 'required|string|max:20',
             'code'      => 'required|string',
             'password'  => 'required|string',
