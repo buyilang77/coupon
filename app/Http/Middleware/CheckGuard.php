@@ -21,14 +21,11 @@ class CheckGuard
     public function handle(Request $request, Closure $next)
     {
         $host = $request->header('host');
-
         $domain = SystemDomain::where('domain', $host)->first();
-        if (!$domain instanceof SystemDomain) {
-            return response(null, 403);
+        if ($domain instanceof SystemDomain) {
+            $guard = $domain->type;
+            $request->attributes->add(['guard' => $guard]);
         }
-        $guard = $domain->type;
-        $request->attributes->add(['guard' => $guard]);
-
         return $next($request);
     }
 }
