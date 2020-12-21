@@ -29,8 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('front-end-h5-api')
-                ->domain(config('domain.front-end-h5-api'))
+            Route::domain(config('domain.front-end-h5-api'))
                 ->middleware('api')
                 ->group(base_path('routes/api.php'));
 
