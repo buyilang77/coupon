@@ -17,7 +17,7 @@ class OrderResource extends JsonResource
     {
         return [
             'id'                => $this->resource->id,
-            'logistics_company' => $this->resource->logisticsCompany->name,
+            'logistics_company' => $this->resource->logisticsCompany->name ?? null,
             'tracking_number'   => $this->resource->tracking_number,
             'code'              => $this->resource->code,
             'title'             => $this->resource->coupon->title,
