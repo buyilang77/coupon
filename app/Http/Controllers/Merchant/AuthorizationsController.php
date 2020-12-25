@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\AuthorizationRequest;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthorizationsController extends Controller
+class AuthorizationsController extends MainController
 {
     /**
      * @param AuthorizationRequest $request

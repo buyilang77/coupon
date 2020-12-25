@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\UploadRequest;
 use Illuminate\Http\JsonResponse;
 use Storage;
 
-class UploadController extends Controller
+class UploadController extends MainController
 {
     /**
      * @param UploadRequest $request

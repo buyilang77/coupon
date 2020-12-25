@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\ProductRequest;
 use App\Http\Resources\Merchant\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class ProductsController extends Controller
+class ProductsController extends MainController
 {
     /**
      * @return JsonResponse

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\OrderRequest;
 use App\Http\Requests\Merchant\OrderShipmentRequest;
 use App\Http\Resources\Merchant\OrderResource;
@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class OrdersController extends Controller
+class OrdersController extends MainController
 {
     /**
      * Display a listing of the resource.

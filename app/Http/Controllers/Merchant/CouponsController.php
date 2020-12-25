@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\CouponRequest;
 use App\Http\Resources\Merchant\CouponResource;
 use App\Models\Coupon;
@@ -14,7 +14,7 @@ use Log;
 use Str;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class CouponsController extends Controller
+class CouponsController extends MainController
 {
     /**
      * @return JsonResponse

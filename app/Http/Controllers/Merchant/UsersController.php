@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\UserRequest;
 use App\Models\Merchant;
 use Auth;
@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
  * Class UsersController
  * @package App\Http\Controllers\Merchant
  */
-class UsersController extends Controller
+class UsersController extends MainController
 {
 
     /**

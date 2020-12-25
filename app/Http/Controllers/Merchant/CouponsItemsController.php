@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Resources\Merchant\CouponItemResource;
 use App\Models\Coupon;
 use App\Models\CouponItem;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class CouponsItemsController extends Controller
+class CouponsItemsController extends MainController
 {
     /**
      * @param Coupon $coupon

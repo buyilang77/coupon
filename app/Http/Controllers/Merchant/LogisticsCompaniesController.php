@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Models\LogisticsCompany;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class LogisticsCompaniesController extends Controller
+class LogisticsCompaniesController extends MainController
 {
     /**
      * Display a listing of the resource.
