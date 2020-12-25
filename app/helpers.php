@@ -4,7 +4,7 @@ use Illuminate\Http\JsonResponse;
 
 /**
  * @param $data
- * @param string $message
+ * @param string|null $message
  * @return JsonResponse
  */
 function custom_response($data, string $message = null): JsonResponse
