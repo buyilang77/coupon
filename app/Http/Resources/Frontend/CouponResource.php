@@ -13,13 +13,17 @@ class CouponResource extends JsonResource
      * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
-            'id'              => $this->resource->id,
-            'title'           => $this->resource->title,
-            'products'        => Product::whereIn('id', $this->resource->products)->get(['id', 'name', 'price', 'carousel', 'description']),
-            'total_shipments' => $this->resource->order->count(),
+            'id'                   => $this->resource->id,
+            'title'                => $this->resource->title,
+            'services_phone'       => $this->resource->services_phone,
+            'activity_description' => $this->resource->activity_description,
+            'start_time'           => $this->resource->start_time,
+            'end_time'             => $this->resource->end_time,
+            'products'             => Product::whereIn('id', $this->resource->products)->get(['id', 'name', 'price', 'carousel', 'description']),
+            'total_shipments'      => $this->resource->order->count(),
         ];
     }
 }
