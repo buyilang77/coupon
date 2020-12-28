@@ -33,7 +33,7 @@ class CouponRequest extends FormRequest
             'prefix'               => 'string|max:15|nullable',
             'start_number'         => 'required|integer|max:10000000000000000',
             'quantity'             => 'required|integer|max:100000',
-            'length'               => 'required|integer|max:20',
+            'length'               => 'required|integer|between:4,12',
             'status'               => 'required|integer|in:0,1',
         ];
     }

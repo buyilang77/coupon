@@ -185,5 +185,6 @@ return [
         'end_time'              => '结束时间',
         'prefix'                => '前缀',
         'price'                 => '价格',
+        'length'                => '编码长度',
     ],
 ];
