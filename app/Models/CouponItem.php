@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read mixed $open_status_text
  * @method static \Illuminate\Database\Eloquent\Builder|CouponItem whereOpenStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CouponItem whereRedemptionStatus($value)
+ * @property-read string $redemption_status_text
  */
 class CouponItem extends BaseModel
 {

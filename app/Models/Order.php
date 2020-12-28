@@ -41,6 +41,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $tracking_number 物流单号
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereLogisticsCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereTrackingNumber($value)
+ * @property int $product_id 所提商品
+ * @property-read \App\Models\LogisticsCompany $logisticsCompany
+ * @property-read \App\Models\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereProductId($value)
  */
 class Order extends BaseModel
 {

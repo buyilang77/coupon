@@ -49,6 +49,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read int|null $product_count
  * @method static \Illuminate\Database\Eloquent\Builder|Merchant whereRegion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Merchant whereUsername($value)
+ * @property int $status 账号状态 0: 待审核, 1: 审核通过
+ * @method static \Illuminate\Database\Eloquent\Builder|Merchant whereStatus($value)
  */
 class Merchant extends Authenticatable implements JWTSubject
 {
@@ -62,6 +64,9 @@ class Merchant extends Authenticatable implements JWTSubject
     protected $guarded = [];
 
     protected $casts = ['region' => 'array'];
+
+    // 账号状态: 审核通过
+    public const STATUS_ENABLE = 1;
 
     /**
      * @inheritDoc
