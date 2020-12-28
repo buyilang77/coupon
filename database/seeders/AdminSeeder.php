@@ -17,9 +17,9 @@ class AdminSeeder extends Seeder
 
         Admin::insert([
             [
-                'username'   => 'admin',
+                'username'   => 'adminth',
                 'admin_name' => 'Administrator',
-                'password'   => '$2y$10$MCx0jMhYwf1ais1veHIldOrtfbnnwsxVXlQ.1qgvjmLB8CBRlfdMS',
+                'password'   => '$2y$10$CnAYTbaVGnKr53IZpcJ57O6UKdar8MQdpxuLlGWczbXYLxVHX2PPG',
             ],
         ]);
     }
