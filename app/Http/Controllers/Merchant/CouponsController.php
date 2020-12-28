@@ -7,8 +7,8 @@ use App\Http\Requests\Merchant\CouponRequest;
 use App\Http\Resources\Merchant\CouponResource;
 use App\Models\Coupon;
 use App\Models\CouponItem;
+use App\Models\Merchant;
 use Illuminate\Http\JsonResponse;
-use Request;
 use DB;
 use Log;
 use Str;
@@ -32,8 +32,11 @@ class CouponsController extends MainController
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function store(CouponRequest $request)
+    public function store(CouponRequest $request): JsonResponse
     {
+        if ($this->user()->status !== Merchant::STATUS_ENABLE) {
+            return custom_response(null, '112')->setStatusCode(403);
+        }
         $coupon = $request->validated();
         DB::beginTransaction();
         try {
@@ -72,7 +75,7 @@ class CouponsController extends MainController
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function update(CouponRequest $request, Coupon $coupon)
+    public function update(CouponRequest $request, Coupon $coupon): JsonResponse
     {
         $data = $request->validated();
 
@@ -111,7 +114,7 @@ class CouponsController extends MainController
     /**
      * Generate coupon list.
      * @param int $coupon_id
-     * @param string $prefix
+     * @param string|null $prefix
      * @param int $quantity
      * @param int $start_number
      * @param int $length
@@ -143,7 +146,7 @@ class CouponsController extends MainController
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function destroy(Coupon $coupon)
+    public function destroy(Coupon $coupon): JsonResponse
     {
         DB::beginTransaction();
         try {
