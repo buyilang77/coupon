@@ -21,7 +21,7 @@ class OrderSeeder extends Seeder
                 'tracking_number'      => '1088764440507',
                 'coupon_id'            => 1,
                 'code'                 => '100001',
-                'products'             => "[1, 2]",
+                'product_id'           => 1,
                 'consignee'            => '柯柯',
                 'phone'                => '18529536820',
                 'region'               => '["610000", "610100", "610113"]',

@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('logistics_company_id')->default(0)->comment('物流公司ID');
             $table->string('tracking_number')->nullable()->comment('物流单号');
             $table->string('code')->comment('提货码');
-            $table->json('products')->comment('所提商品');
+            $table->bigInteger('product_id')->comment('所提商品');
             $table->string('consignee')->comment('收货人');
             $table->string('phone')->comment('收货电话');
             $table->json('region')->comment('地区');

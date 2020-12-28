@@ -46,10 +46,7 @@ class Order extends BaseModel
 {
     use HasFactory;
 
-    protected $casts = [
-        'region'   => 'array',
-        'products' => 'array',
-    ];
+    protected $casts = ['region' => 'array'];
 
     /**
      * @return BelongsTo
@@ -65,5 +62,13 @@ class Order extends BaseModel
     public function logisticsCompany(): BelongsTo
     {
         return $this->belongsTo(LogisticsCompany::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
     }
 }
