@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Resources\Frontend\CouponResource;
 use App\Models\Coupon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CouponsController extends Controller
+class CouponsController extends MainController
 {
     /**
      * Display the specified resource.

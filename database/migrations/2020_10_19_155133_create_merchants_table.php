@@ -15,13 +15,14 @@ class CreateMerchantsTable extends Migration
     {
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->comment('用户名');
-            $table->string('surname')->nullable()->comment('姓名');
-            $table->string('merchant_name')->nullable()->comment('商户名称');
-            $table->string('phone');
+            $table->string('username', 20)->comment('用户名');
+            $table->string('surname', 10)->nullable()->comment('姓名');
+            $table->string('merchant_name', 20)->nullable()->comment('商户名称');
+            $table->string('phone', 11)->comment('手机号');
             $table->string('password');
             $table->json('region')->nullable()->comment('地区');
-            $table->string('address')->nullable()->comment('详细地址');
+            $table->string('address', 100)->nullable()->comment('详细地址');
+            $table->tinyInteger('status')->default(0)->comment('账号状态 0: 待审核, 1: 审核通过');
             $table->timestamps();
         });
     }

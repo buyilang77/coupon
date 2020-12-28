@@ -31,9 +31,7 @@ class Authenticate extends Middleware
      */
     protected function authenticate($request, array $guards)
     {
-        $host = $request->header('host');
-        $domain = SystemDomain::where('domain', $host)->first();
-        $guard = $domain->type;
+        $guard = current($guards);
         $request->attributes->add(['guard' => $guard]);
         if ($this->auth->guard($guard)->check()) {
             return $this->auth->shouldUse($guard);

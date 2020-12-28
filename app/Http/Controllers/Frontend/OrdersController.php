@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Http\Requests\Frontend\OrderRequest;
 use App\Models\CouponItem;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class OrdersController extends Controller
+class OrdersController extends MainController
 {
     /**
      * Store a newly created resource in storage.

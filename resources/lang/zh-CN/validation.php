@@ -155,7 +155,7 @@ return [
         'password_confirmation' => '确认密码',
         'city'                  => '城市',
         'country'               => '国家',
-        'address'               => '地址',
+        'address'               => '详细地址',
         'phone'                 => '手机号',
         'mobile'                => '手机',
         'age'                   => '年龄',

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Models\Coupon;
 use Illuminate\Http\JsonResponse;
 
-class InformationController extends Controller
+class InformationController extends MainController
 {
     /**
      * @param Coupon $coupon

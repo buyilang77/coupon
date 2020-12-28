@@ -31,7 +31,7 @@ Route::put('authorizations/current', [AuthorizationsController::class, 'update']
 Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])
     ->name('authorizations.destroy');
 // 登录后可以访问的接口
-Route::middleware('auth:api')->group(function() {
+Route::middleware('auth:merchant-api')->group(function() {
     // 当前登录用户信息
     Route::get('user', [UsersController::class, 'mine'])->name('user.show');
     // 编辑登录用户信息
