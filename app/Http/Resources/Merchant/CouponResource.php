@@ -13,10 +13,12 @@ class CouponResource extends JsonResource
      * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
+        $qr_code_link = config('domain.front-end-h5') . '/#/coupons/' . $this->resource->id;
         return [
             'id'                   => $this->resource->id,
+            'qr_code_link'         => $qr_code_link,
             'title'                => $this->resource->title,
             'services_phone'       => $this->resource->services_phone,
             'activity_description' => $this->resource->activity_description,
