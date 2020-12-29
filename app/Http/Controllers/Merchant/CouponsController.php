@@ -38,6 +38,8 @@ class CouponsController extends MainController
             return custom_response(null, '112')->setStatusCode(403);
         }
         $coupon = $request->validated();
+        $status = $coupon['status'];
+        unset($coupon['status']);
         DB::beginTransaction();
         try {
             $coupon_result = $this->user()->coupon()->create($coupon);
@@ -46,6 +48,7 @@ class CouponsController extends MainController
                 $coupon['prefix'],
                 $coupon['quantity'],
                 $coupon['start_number'],
+                $status,
                 $coupon['length'],
                 );
             CouponItem::insert($coupon_item);
@@ -79,6 +82,9 @@ class CouponsController extends MainController
     {
         $data = $request->validated();
 
+        $status = $data['status'];
+        unset($data['status']);
+
         $coupon->prefix = $data['prefix'];
         $coupon->quantity = $data['quantity'];
         $coupon->start_number = $data['start_number'];
@@ -94,6 +100,7 @@ class CouponsController extends MainController
                 $coupon->quantity,
                 $coupon->start_number,
                 $coupon->length,
+                $status,
                 false
             );
             foreach ($coupon_items_id as $key => $item) {
@@ -101,7 +108,7 @@ class CouponsController extends MainController
             }
             $cases = implode(' ', $cases);
             $coupon_items_id = implode(',', $coupon_items_id);
-            DB::update("UPDATE `coupon_items` SET `code` = (CASE {$cases} END) WHERE `id` IN ({$coupon_items_id})");
+            DB::update("UPDATE `coupon_items` SET `code` = (CASE {$cases} END), `open_status` = {$status} WHERE `id` IN ({$coupon_items_id})");
             DB::commit();
             return custom_response(null, '103');
         } catch (\Exception $exception) {
@@ -118,6 +125,7 @@ class CouponsController extends MainController
      * @param int $quantity
      * @param int $start_number
      * @param int $length
+     * @param int $status
      * @param bool $is_create
      * @return array
      */
@@ -127,6 +135,7 @@ class CouponsController extends MainController
         int $quantity,
         int $start_number,
         int $length,
+        int $status,
         bool $is_create = true
     ): array
     {
@@ -134,6 +143,7 @@ class CouponsController extends MainController
         for ($i = $start_number; $i < $start_number + $quantity; $i++) {
             $coupon[$i]['code'] = $prefix . Str::padLeft($i, $length, 0);
             $coupon[$i]['coupon_id'] = $coupon_id;
+            $coupon[$i]['open_status'] = $status;
             if ($is_create) {
                 $coupon[$i]['password'] = Str::padLeft(mt_rand(000000, 999999), 6, 0);
             }
