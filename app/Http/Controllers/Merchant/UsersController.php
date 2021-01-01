@@ -6,6 +6,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\UserRequest;
 use App\Models\Merchant;
 use Auth;
+use Hash;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -37,10 +38,18 @@ class UsersController extends MainController
         return custom_response($user);
     }
 
-    public function update(UserRequest $request)
+    /**
+     * @param UserRequest $request
+     * @return JsonResponse
+     */
+    public function update(UserRequest $request): JsonResponse
     {
-        $attributes = $request->only(['name', 'surname', 'phone', 'sex']);
-        $this->user()->update($attributes);
-        return custom_response($this->user());
+        $data = $request->validated();
+        $password = $data['password'] ?? null;
+        if ($password) {
+            $data['password'] = Hash::make($password);
+        }
+        $this->user()->update($data);
+        return custom_response(null, '103');
     }
 }
