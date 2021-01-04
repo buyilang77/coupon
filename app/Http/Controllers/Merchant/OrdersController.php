@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Merchant;
 
+use AlibabaCloud\Client\Exception\ClientException;
 use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\OrderRequest;
 use App\Http\Requests\Merchant\OrderShipmentRequest;
 use App\Http\Resources\Merchant\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class OrdersController extends MainController
@@ -47,11 +47,21 @@ class OrdersController extends MainController
      * @param OrderShipmentRequest $request
      * @param Order $order
      * @return JsonResponse
+     * @throws ClientException
      */
     public function ship(OrderShipmentRequest $request, Order $order): JsonResponse
     {
         $data = $request->validated();
         $order->update($data);
+        $templateParam = [
+            'consignee'         => $order->consignee,
+            'tracking_number'   => $order->tracking_number,
+            'logistics_company' => $order->logisticsCompany->name,
+        ];
+        $result = $this->sms($order->phone, 'SMS_208641439', $templateParam);
+        if (!$result) {
+            return custom_response(null, '113');
+        }
         return custom_response(null, '106');
     }
 }

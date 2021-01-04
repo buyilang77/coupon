@@ -13,57 +13,52 @@ use Illuminate\Support\Facades\Storage;
  *
  * @property int $id
  * @property int $merchant_id
- * @property int $product_id
- * @property string $title
+ * @property array $products
+ * @property string $title 活动名称
+ * @property string|null $services_phone 客服电话
+ * @property string|null $activity_description 活动说明
  * @property string $start_time
  * @property string $end_time
- * @property string $prefix 前缀
+ * @property string|null $prefix 前缀
  * @property string $start_number 起始编号
- * @property int $quantity 卡卷数量
- * @property int $length 卡卷长度
- * @property int $status 默认状态 0:待启用, 1:启用, 3:已结束
- * @property string $image 活动主图
- * @property string $tips 活动提示
+ * @property int $quantity 卡券数量
+ * @property int $length 卡券长度
+ * @property int $status 默认状态 0:未开始, 1:进行中, 2:已结束
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read string $full_image
- * @property-read \App\Models\Product $product
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon query()
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereEndTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereLength($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereMerchantId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon wherePrefix($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereQuantity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereStartNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereStartTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereTips($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property-read \App\Models\CouponItem|null $item
- * @property array $products
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CouponItem[] $item
  * @property-read int|null $item_count
- * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereProducts($value)
- * @property string $services_phone 客服电话
- * @property string $activity_description 活动说明
  * @property-read \App\Models\Merchant $merchant
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $order
  * @property-read int|null $order_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon query()
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereActivityDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereLength($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereMerchantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon wherePrefix($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereProducts($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereServicesPhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereStartNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Coupon extends BaseModel
 {
     use HasFactory;
 
     protected $casts = ['products' => 'array'];
+
+    // Coupon status
+    public const STATUS_ENABLE = 1;
 
     /**
      * @return HasMany

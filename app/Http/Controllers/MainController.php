@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use App\Models\Admin;
 use App\Models\Merchant;
 use Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Log;
 
 class MainController extends Controller
 {
@@ -51,5 +55,42 @@ class MainController extends Controller
             'token_type'   => 'Bearer',
             'expires_in'   => Auth::factory()->getTTL() * 60,
         ]);
+    }
+
+    /**
+     * @param string $phone
+     * @param string $templateCode
+     * @param array $templateParam
+     * @return bool
+     * @throws ClientException
+     */
+    public function sms(string $phone, string $templateCode, array $templateParam): bool
+    {
+        AlibabaCloud::accessKeyClient(env('ALiYun_SMS_AccessKeyId'), env('ALiYun_SMS_AccessKeySecret'))
+            ->regionId('cn-hangzhou')
+            ->asDefaultClient();
+
+        try {
+            $result = AlibabaCloud::rpc()
+                ->product('Dysmsapi')
+                ->version('2017-05-25')
+                ->action('SendSms')
+                ->method('POST')
+                ->host('dysmsapi.aliyuncs.com')
+                ->options([
+                    'query' => [
+                        'RegionId'      => "cn-hangzhou",
+                        'PhoneNumbers'  => $phone,
+                        'SignName'      => "蜗牛网络",
+                        'TemplateCode'  => $templateCode,
+                        'TemplateParam' => json_encode($templateParam),
+                    ],
+                ])
+                ->request();
+            return true;
+        } catch (ClientException | ServerException $e) {
+            Log::error($e->getErrorMessage());
+        }
+        return false;
     }
 }

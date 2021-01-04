@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 use App\Http\Controllers\MainController;
 use App\Http\Requests\Frontend\OrderRequest;
 use App\Models\CouponItem;
@@ -16,6 +19,7 @@ class OrdersController extends MainController
      *
      * @param OrderRequest $request
      * @return JsonResponse
+     * @throws ClientException
      */
     public function store(OrderRequest $request): JsonResponse
     {
@@ -37,10 +41,17 @@ class OrdersController extends MainController
         }
         $data['merchant_id'] = $item->coupon->merchant->id;
         $data['coupon_id'] = $item->coupon_id;
-        Order::create($data);
+        $order = Order::create($data);
 
         $item->redemption_status = CouponItem::STATUS_ACTIVATED;
         $item->update();
+        $templateParam = [
+            'code' => $order->code,
+        ];
+        $result = $this->sms($order->phone, 'SMS_208626496', $templateParam);
+        if (!$result) {
+            return custom_response(null, '113');
+        }
         return custom_response(null, '108');
     }
 }
