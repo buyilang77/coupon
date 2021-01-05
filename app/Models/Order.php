@@ -45,6 +45,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\LogisticsCompany $logisticsCompany
  * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereProductId($value)
+ * @property-read \App\Models\Merchant $merchant
  */
 class Order extends BaseModel
 {
@@ -74,5 +75,13 @@ class Order extends BaseModel
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function merchant(): BelongsTo
+    {
+        return $this->belongsTo(Merchant::class);
     }
 }

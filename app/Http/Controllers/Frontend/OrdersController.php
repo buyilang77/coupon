@@ -48,7 +48,7 @@ class OrdersController extends MainController
         $templateParam = [
             'code' => $order->code,
         ];
-        $result = $this->sms($order->phone, 'SMS_208626496', $templateParam);
+        $result = $this->sms($order->merchant->phone, 'SMS_208626496', $templateParam);
         if (!$result) {
             return custom_response(null, '113');
         }
