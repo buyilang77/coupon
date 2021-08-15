@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Merchant\ActivitiesController;
 use App\Http\Controllers\Merchant\AuthorizationsController;
 use App\Http\Controllers\Merchant\CouponsController;
 use App\Http\Controllers\Merchant\CouponsItemsController;
@@ -36,6 +37,7 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::get('user', [UsersController::class, 'mine'])->name('user.show');
     // 编辑登录用户信息
     Route::patch('user', [UsersController::class, 'update'])->name('user.update');
+    Route::resource('activities', ActivitiesController::class);
     Route::resource('coupons', CouponsController::class);
     Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index'])->name('coupons.index');
     Route::resource('products', ProductsController::class);
