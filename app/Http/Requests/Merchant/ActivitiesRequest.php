@@ -24,7 +24,8 @@ class ActivitiesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price'                => 'required|string',
+            'price'                => 'required|numeric',
+            'original_price'       => 'required|numeric',
             'title'                => 'required|string|max:200',
             'services_phone'       => 'string|max:15|nullable',
             'activity_description' => 'string|max:200|nullable',

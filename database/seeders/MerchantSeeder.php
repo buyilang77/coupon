@@ -20,7 +20,7 @@ class MerchantSeeder extends Seeder
                 'surname'       => '柯柯',
                 'merchant_name' => '柯柯',
                 'phone'         => '18529536820',
-                'password'      => '$2y$10$tYa1pOCDSxWvb5j.e1QQRuGPtDyu0TlRTMn/0bs.VnoKWJiyOzCNy',
+                'password'      => '$2y$10$vSOu1mjkPiTxh6G/PBD1.u2XXyKqNHDJMCugePTnkptp2y.o6EJzO',
                 'region'        => '["610000","610100","610113"]',
                 'address'       => '高新一路',
                 'status'        => 1,
