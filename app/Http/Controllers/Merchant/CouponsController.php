@@ -38,20 +38,10 @@ class CouponsController extends MainController
             return custom_response(null, '112')->setStatusCode(403);
         }
         $coupon = $request->validated();
-        $status = $coupon['status'];
         unset($coupon['status']);
         DB::beginTransaction();
         try {
-            $coupon_result = $this->user()->coupon()->create($coupon);
-            $coupon_item = $this->generateCoupon(
-                $coupon_result->id,
-                $coupon['prefix'],
-                $coupon['quantity'],
-                $coupon['start_number'],
-                $status,
-                $coupon['length'],
-                );
-            CouponItem::insert($coupon_item);
+            $this->user()->coupon()->create($coupon);
             DB::commit();
             return custom_response(null, '101');
         } catch (\Exception $exception) {
@@ -81,7 +71,6 @@ class CouponsController extends MainController
     public function update(CouponRequest $request, Coupon $coupon): JsonResponse
     {
         $data = $request->validated();
-
         $status = $data['status'];
         unset($data['status']);
 
@@ -94,21 +83,38 @@ class CouponsController extends MainController
         DB::beginTransaction();
         try {
             $coupon->update($data);
-            $coupon_item = $this->generateCoupon(
-                $coupon->id,
-                $coupon->prefix,
-                $coupon->quantity,
-                $coupon->start_number,
-                $coupon->length,
-                $status,
-                false
-            );
-            foreach ($coupon_items_id as $key => $item) {
-                $cases[] = "WHEN `id` = {$item} THEN '{$coupon_item[$key]['code']}'";
+
+            if ($coupon->item->isEmpty()) {
+                $coupon_item = $this->generateCoupon(
+                    $coupon->id,
+                    $data['prefix'],
+                    $data['quantity'],
+                    $data['start_number'],
+                    $data['length'],
+                    $status
+                );
+                CouponItem::insert($coupon_item);
+            } else {
+                $coupon_item = $this->generateCoupon(
+                    $coupon->id,
+                    $coupon->prefix,
+                    $coupon->quantity,
+                    $coupon->start_number,
+                    $coupon->length,
+                    $status,
+                    false
+                );
+
+                foreach ($coupon_items_id as $key => $item) {
+                    $cases[] = "WHEN `id` = {$item} THEN '{$coupon_item[$key]['code']}'";
+                }
+                $cases = implode(' ', $cases);
+
+                $coupon_items_id = implode(',', $coupon_items_id);
+                $statement = "UPDATE `coupon_items` SET `code` = (CASE {$cases} END), `open_status` = {$status} WHERE `id` IN ({$coupon_items_id})";
+
+                DB::update($statement);
             }
-            $cases = implode(' ', $cases);
-            $coupon_items_id = implode(',', $coupon_items_id);
-            DB::update("UPDATE `coupon_items` SET `code` = (CASE {$cases} END), `open_status` = {$status} WHERE `id` IN ({$coupon_items_id})");
             DB::commit();
             return custom_response(null, '103');
         } catch (\Exception $exception) {
