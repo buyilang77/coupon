@@ -37,6 +37,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('merchant-api')
                 ->group(base_path('routes/merchant.php'));
 
+            Route::domain(config('domain.shop-api'))
+                ->middleware('shop-api')
+                ->group(base_path('routes/shop.php'));
+
             Route::domain(config('domain.admin-api'))
                 ->middleware('admin-api')
                 ->group(base_path('routes/admin.php'));

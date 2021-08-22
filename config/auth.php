@@ -48,6 +48,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'merchants',
         ],
+        'shop-api' => [
+            'driver'   => 'jwt',
+            'provider' => 'shop',
+        ],
         'admin-api' => [
             'driver' => 'jwt',
             'provider' => 'admins',
@@ -73,6 +77,10 @@ return [
 
     'providers' => [
         'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+        'shop' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
