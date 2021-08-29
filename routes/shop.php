@@ -13,5 +13,8 @@
 */
 
 use App\Http\Controllers\Shop\CouponsController;
+use App\Http\Controllers\Shop\ShopOrdersController;
 
 Route::get('coupons', [CouponsController::class, 'index']);
+Route::get('coupons/{coupon}', [CouponsController::class, 'show']);
+Route::resource('orders', ShopOrdersController::class);

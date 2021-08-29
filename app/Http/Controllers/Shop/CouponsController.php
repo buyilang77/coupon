@@ -11,18 +11,18 @@ class CouponsController extends MainController
 {
     public function index(): JsonResponse
     {
-        $coupon = Coupon::orderByDesc('id')->paginate($this->perPage);
+        $coupon = Coupon::orderByDesc('id')->paginate(50);
         return custom_response(CouponResource::collection($coupon)->response()->getData());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Coupon $coupon
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(Coupon $coupon): JsonResponse
     {
-        //
+        return custom_response(CouponResource::make($coupon));
     }
 }

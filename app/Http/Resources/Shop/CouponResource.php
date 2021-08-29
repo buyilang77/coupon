@@ -19,6 +19,7 @@ class CouponResource extends JsonResource
         return [
             'id'                   => $this->resource->id,
             'title'                => $this->resource->title,
+            'price'                => $this->resource->price,
             'services_phone'       => $this->resource->services_phone,
             'activity_description' => Str::limit($this->resource->activity_description, 45, '...'),
             'products'             => Product::whereIn('id', $this->resource->products)->get(['id', 'name', 'price', 'carousel', 'description']),
