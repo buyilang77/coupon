@@ -20,6 +20,7 @@ class CreateCouponItemsTable extends Migration
             $table->string('password');
             $table->tinyInteger('open_status')->default(0)->comment('状态 0:未开启, 1:已开启')->index();
             $table->tinyInteger('redemption_status')->default(0)->comment('状态 0:未兑换, 1:已兑换')->index();
+            $table->tinyInteger('payment_status')->default(0)->comment('状态 0:未购买, 1:已购买')->index();
             $table->timestamps();
         });
     }

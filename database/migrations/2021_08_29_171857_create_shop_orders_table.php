@@ -15,9 +15,11 @@ class CreateShopOrdersTable extends Migration
     {
         Schema::create('shop_orders', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('merchant_id')->comment('商户ID');
+            $table->bigInteger('shop_user_id')->comment('用户ID');
             $table->bigInteger('coupon_id')->comment('所属活动');
             $table->bigInteger('amount');
+            $table->tinyInteger('type')->comment('订单类型 1: 购买, 2: 受赠');
+            $table->decimal('total_amount')->comment('总金额');
             $table->string('contact')->comment('联系人');
             $table->string('phone')->comment('电话');
             $table->json('region')->comment('地区');

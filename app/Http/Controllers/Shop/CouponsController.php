@@ -11,7 +11,7 @@ class CouponsController extends MainController
 {
     public function index(): JsonResponse
     {
-        $coupon = Coupon::orderByDesc('id')->paginate(50);
+        $coupon = Coupon::orderByDesc('id')->paginate(100);
         return custom_response(CouponResource::collection($coupon)->response()->getData());
     }
 
