@@ -24,17 +24,17 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'coupon_id' => 'required|integer',
-            'consignee' => 'required|string|max:20',
-            'code'      => 'required|string',
-            'password'  => 'required|string',
-            'phone'     => [
+            'coupon_id'  => 'required|integer',
+            'consignee'  => 'required|string|max:20',
+            'code'       => 'required|string',
+            'password'   => 'required|string',
+            'phone'      => [
                 'required',
                 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199)\d{8}$/',
             ],
-            'product_id'   => 'required|integer',
-            'region'    => 'required|array',
-            'address'   => 'required|string|max:100',
+            'product_id' => 'required|integer',
+            'region'     => 'required|array',
+            'address'    => 'required|string|max:100',
         ];
     }
 }

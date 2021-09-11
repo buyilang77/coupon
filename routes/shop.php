@@ -24,6 +24,9 @@ Route::get('coupons/{coupon}', [CouponsController::class, 'show']);
 Route::middleware('auth:shop-api')->group(function() {
     // 当前登录用户信息
     Route::get('user', [UsersController::class, 'mine']);
+    Route::post('orders/pickup/{order}', [ShopOrdersController::class, 'pickup']);
+    Route::get('orders/received', [ShopOrdersController::class, 'received']);
+    Route::get('orders/received/{order}', [ShopOrdersController::class, 'receivedDetail']);
     Route::resource('orders', ShopOrdersController::class);
     // 编辑登录用户信息
 //    Route::patch('user', [UsersController::class, 'update'])->name('user.update');

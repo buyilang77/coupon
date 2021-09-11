@@ -47,4 +47,14 @@ class ShopUser extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(ShopOrder::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function receivedOrder(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+
 }
