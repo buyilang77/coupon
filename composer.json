@@ -18,7 +18,9 @@
         "laravel/tinker": "^2.0",
         "spatie/laravel-query-builder": "^3.3",
         "tymon/jwt-auth": "^1.0",
-        "w7corp/easywechat": "^6.0.0.beta"
+        "w7corp/easywechat": "^6.0.0.beta",
+        "yansongda/laravel-pay": "~3.0.0",
+        "yansongda/pay": "~3.0.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.8",

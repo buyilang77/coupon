@@ -52,9 +52,8 @@ class Order extends BaseModel
     use HasFactory;
 
     protected $casts = [
-        'region'   => 'array',
-        'code'     => 'array',
-//        'products' => 'array',
+        'region' => 'array',
+        'code'   => 'array',
     ];
 
     /**

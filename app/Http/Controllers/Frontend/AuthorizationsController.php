@@ -40,7 +40,7 @@ class AuthorizationsController extends MainController
             ]);
         }
         $token = Auth::login($user);
-        return redirect('http://shop.hipi5.com:8080/#/user?access_token=' . $token);
+        return redirect('http://shop.hipi5.com:8081/#/user?access_token=' . $token);
     }
 
     /**

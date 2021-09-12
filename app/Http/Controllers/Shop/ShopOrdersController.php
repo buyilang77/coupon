@@ -14,6 +14,7 @@ use App\Models\ShopOrder;
 use App\Models\ShopOrderItem;
 use DB;
 use Illuminate\Http\JsonResponse;
+use Pay;
 
 class ShopOrdersController extends MainController
 {
@@ -45,8 +46,8 @@ class ShopOrdersController extends MainController
         ];
         $couponItems = $coupon->item()->where($condition)->limit($data['amount'])->get(['id']);
         DB::beginTransaction();
+        $order = $this->user()->order()->create($data);
         try {
-            $order = $this->user()->order()->create($data);
             foreach ($couponItems as $couponItem) {
                 ShopOrderItem::create([
                     'shop_order_id'  => $order->id,
@@ -58,10 +59,22 @@ class ShopOrdersController extends MainController
             }
             DB::commit();
         } catch (\Throwable $e) {
-            \Log::error($e);
+            \Log::error($e->getMessage());
             DB::rollBack();
         }
-        return custom_response([], '114');
+        $prepay = [
+            'out_trade_no' => $order->order_no,
+            'description'  => $coupon->title,
+            'amount'       => [
+                'total' => $request->amount,
+            ],
+            'payer'        => [
+                'openid' => $this->user()->mp_openid,
+            ],
+        ];
+
+        $result = Pay::wechat()->mp($prepay);
+        return custom_response($result, '114');
     }
 
     /**

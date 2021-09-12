@@ -28,16 +28,6 @@ Route::middleware('auth:shop-api')->group(function() {
     Route::get('orders/received', [ShopOrdersController::class, 'received']);
     Route::get('orders/received/{order}', [ShopOrdersController::class, 'receivedDetail']);
     Route::resource('orders', ShopOrdersController::class);
-    // 编辑登录用户信息
-//    Route::patch('user', [UsersController::class, 'update'])->name('user.update');
-//    Route::resource('activities', ActivitiesController::class);
-//    Route::resource('coupons', CouponsController::class);
-//    Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index'])->name('coupons.index');
-//    Route::resource('products', ProductsController::class);
-//    Route::patch('coupons/items/bulk-update', [CouponsItemsController::class, 'bulkUpdate']);
-//    Route::patch('coupons/items/{item}', [CouponsItemsController::class, 'update']);
-//    Route::resource('logistics-companies', LogisticsCompaniesController::class);
-//    Route::resource('orders', OrdersController::class);
-//    Route::patch('orders/{order}/shipment', [OrdersController::class, 'ship'])->name('orders.shipment');
-//    Route::post('upload-image', [UploadController::class, 'store'])->name('store');
+    Route::post('payment','BillsController@wxpay');
+    Route::post('payment/notify','BillsController@wxnotify');
 });

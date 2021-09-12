@@ -7,6 +7,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use App\Models\Admin;
 use App\Models\Merchant;
+use App\Models\ShopUser;
 use Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
@@ -37,9 +38,9 @@ class MainController extends Controller
     }
 
     /**
-     * @return Authenticatable|Merchant|Admin
+     * @return Merchant|Admin|ShopUser|Authenticatable
      */
-    public function user(): Merchant|Admin|Authenticatable
+    public function user(): Merchant|Admin|ShopUser|Authenticatable
     {
         return Auth::user();
     }
