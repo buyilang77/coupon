@@ -50,6 +50,10 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $price
+ * @property string $original_price
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereOriginalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon wherePrice($value)
  */
 class Coupon extends BaseModel
 {

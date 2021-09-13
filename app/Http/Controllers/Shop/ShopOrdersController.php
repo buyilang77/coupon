@@ -99,6 +99,7 @@ class ShopOrdersController extends MainController
             'payment_at' => Carbon::now(),
             'payment_no' => $result->transaction_id,
         ]);
+        $order->coupon->item->update(['payment_status' => 1]);
         return Pay::wechat()->success();
     }
 

@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|CouponItem whereOpenStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CouponItem whereRedemptionStatus($value)
  * @property-read string $redemption_status_text
+ * @property int $payment_status 状态 0:未购买, 1:已购买
+ * @method static \Illuminate\Database\Eloquent\Builder|CouponItem wherePaymentStatus($value)
  */
 class CouponItem extends BaseModel
 {
