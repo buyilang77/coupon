@@ -79,13 +79,17 @@ class ShopOrdersController extends MainController
     }
 
     /**
-     * @return string
+     * @return \Psr\Http\Message\ResponseInterface|string
+     * @throws \Yansongda\Pay\Exception\ContainerDependencyException
+     * @throws \Yansongda\Pay\Exception\ContainerException
+     * @throws \Yansongda\Pay\Exception\InvalidParamsException
+     * @throws \Yansongda\Pay\Exception\ServiceNotFoundException
      */
-    public function notify(): string
+    public function notify(): string|\Psr\Http\Message\ResponseInterface
     {
         $result = Pay::wechat()->callback();
         // 找到对应的订单
-        $order = ShopOrder::where('order_no', $result->out_trade_no)->first();
+        $order = ShopOrder::where('order_no', $result->resource['ciphertext']['out_trade_no'])->first();
         // 订单不存在则告知微信支付
         if (!$order) {
             return 'fail';
