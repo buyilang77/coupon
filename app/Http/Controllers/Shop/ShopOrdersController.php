@@ -67,7 +67,7 @@ class ShopOrdersController extends MainController
             'out_trade_no' => $order->order_no,
             'description'  => $coupon->title,
             'amount'       => [
-                'total' => $request->amount,
+                'total' => $data['total_amount'] * 100,
             ],
             'payer'        => [
                 'openid' => $this->user()->mp_openid,
