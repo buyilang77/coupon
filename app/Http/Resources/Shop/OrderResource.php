@@ -28,6 +28,7 @@ class OrderResource extends JsonResource
             'products'   => Product::whereIn('id', $this->resource->coupon->products)->get(['id', 'carousel']),
             'status'     => (int) $this->resource->status,
             'stock'      => $this->resource->item->where('status', 1)->count(),
+            'payment_at' => $this->resource->payment_at,
             'created_at' => $this->resource->created_at->toDateString(),
         ];
     }
