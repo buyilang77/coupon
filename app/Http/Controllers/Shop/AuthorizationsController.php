@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\MainController;
 use App\Models\ShopUser;
@@ -40,7 +40,7 @@ class AuthorizationsController extends MainController
             ]);
         }
         $token = Auth::login($user);
-        return redirect('http://shop.hipi5.com:8081/#/user?access_token=' . $token);
+        return redirect('http://shop.hipi5.com/user?access_token=' . $token);
     }
 
     /**

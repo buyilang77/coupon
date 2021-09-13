@@ -12,6 +12,7 @@ use App\Models\CouponItem;
 use App\Models\Order;
 use App\Models\ShopOrder;
 use App\Models\ShopOrderItem;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\JsonResponse;
 use Pay;
@@ -75,6 +76,26 @@ class ShopOrdersController extends MainController
 
         $result = Pay::wechat()->mp($prepay);
         return custom_response($result, '114');
+    }
+
+    /**
+     * @return string
+     */
+    public function notify(): string
+    {
+        $result = Pay::wechat()->callback();
+        // 找到对应的订单
+        $order = ShopOrder::where('order_no', $result->out_trade_no)->first();
+        // 订单不存在则告知微信支付
+        if (!$order) {
+            return 'fail';
+        }
+        // 将订单标记为已支付
+        $order->update([
+            'payment_at' => Carbon::now(),
+            'payment_no' => $result->transaction_id,
+        ]);
+        return Pay::wechat()->success();
     }
 
     /**

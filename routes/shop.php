@@ -12,7 +12,7 @@
 |
 */
 
-use App\Http\Controllers\Frontend\AuthorizationsController;
+use App\Http\Controllers\Shop\AuthorizationsController;
 use App\Http\Controllers\Shop\CouponsController;
 use App\Http\Controllers\Shop\ShopOrdersController;
 use App\Http\Controllers\Shop\UsersController;
@@ -28,6 +28,5 @@ Route::middleware('auth:shop-api')->group(function() {
     Route::get('orders/received', [ShopOrdersController::class, 'received']);
     Route::get('orders/received/{order}', [ShopOrdersController::class, 'receivedDetail']);
     Route::resource('orders', ShopOrdersController::class);
-    Route::post('payment','BillsController@wxpay');
-    Route::post('payment/notify','BillsController@wxnotify');
 });
+Route::post('payment/notify',[ShopOrdersController::class, 'notify']);
