@@ -15,6 +15,7 @@ use App\Models\ShopOrderItem;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Pay;
 
 class ShopOrdersController extends MainController
@@ -68,6 +69,27 @@ class ShopOrdersController extends MainController
             'description'  => $coupon->title,
             'amount'       => [
                 'total' => $data['total_amount'] * 100,
+            ],
+            'payer'        => [
+                'openid' => $this->user()->mp_openid,
+            ],
+        ];
+
+        $result = Pay::wechat()->mp($prepay);
+        return custom_response($result, '114');
+    }
+
+    /**
+     * @param ShopOrder $order
+     * @return JsonResponse
+     */
+    public function payAgain(ShopOrder $order): JsonResponse
+    {
+        $prepay = [
+            'out_trade_no' => $order->order_no,
+            'description'  => $order->coupon->title,
+            'amount'       => [
+                'total' => $order['total_amount'] * 100,
             ],
             'payer'        => [
                 'openid' => $this->user()->mp_openid,

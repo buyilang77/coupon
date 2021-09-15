@@ -27,6 +27,7 @@ Route::middleware('auth:shop-api')->group(function() {
     Route::post('orders/pickup/{order}', [ShopOrdersController::class, 'pickup']);
     Route::get('orders/received', [ShopOrdersController::class, 'received']);
     Route::get('orders/received/{order}', [ShopOrdersController::class, 'receivedDetail']);
+    Route::get('orders/payAgain/{order}', [ShopOrdersController::class, 'payAgain']);
     Route::resource('orders', ShopOrdersController::class);
 });
 Route::post('payment/notify',[ShopOrdersController::class, 'notify']);
