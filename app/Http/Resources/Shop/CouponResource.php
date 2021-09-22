@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Shop;
 
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Str;
@@ -16,6 +17,10 @@ class CouponResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $condition = [
+            'redemption_status' => 0,
+            'payment_status' => 0,
+        ];
         return [
             'id'                   => $this->resource->id,
             'title'                => $this->resource->title,
@@ -25,7 +30,7 @@ class CouponResource extends JsonResource
             'products'             => Product::whereIn('id', $this->resource->products)->get(['id', 'name', 'price', 'carousel', 'description']),
             'start_time'           => $this->resource->start_time,
             'end_time'             => $this->resource->end_time,
-            'stock'                => $this->resource->item->where('payment_status', 0)->count(),
+            'stock'                => $this->resource->item()->where($condition)->count(),
         ];
     }
 }

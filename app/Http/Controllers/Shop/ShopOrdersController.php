@@ -12,8 +12,10 @@ use App\Models\CouponItem;
 use App\Models\Order;
 use App\Models\ShopOrder;
 use App\Models\ShopOrderItem;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Pay;
 
 class ShopOrdersController extends MainController
@@ -66,7 +68,7 @@ class ShopOrdersController extends MainController
             'out_trade_no' => $order->order_no,
             'description'  => $coupon->title,
             'amount'       => [
-                'total' => $request->amount,
+                'total' => $data['total_amount'] * 100,
             ],
             'payer'        => [
                 'openid' => $this->user()->mp_openid,
@@ -75,6 +77,52 @@ class ShopOrdersController extends MainController
 
         $result = Pay::wechat()->mp($prepay);
         return custom_response($result, '114');
+    }
+
+    /**
+     * @param ShopOrder $order
+     * @return JsonResponse
+     */
+    public function payAgain(ShopOrder $order): JsonResponse
+    {
+        $prepay = [
+            'out_trade_no' => $order->order_no,
+            'description'  => $order->coupon->title,
+            'amount'       => [
+                'total' => $order['total_amount'] * 100,
+            ],
+            'payer'        => [
+                'openid' => $this->user()->mp_openid,
+            ],
+        ];
+
+        $result = Pay::wechat()->mp($prepay);
+        return custom_response($result, '114');
+    }
+
+    /**
+     * @return \Psr\Http\Message\ResponseInterface|string
+     * @throws \Yansongda\Pay\Exception\ContainerDependencyException
+     * @throws \Yansongda\Pay\Exception\ContainerException
+     * @throws \Yansongda\Pay\Exception\InvalidParamsException
+     * @throws \Yansongda\Pay\Exception\ServiceNotFoundException
+     */
+    public function notify(): string|\Psr\Http\Message\ResponseInterface
+    {
+        $result = Pay::wechat()->callback();
+        // 找到对应的订单
+        $order = ShopOrder::where('order_no', $result->resource['ciphertext']['out_trade_no'])->first();
+        // 订单不存在则告知微信支付
+        if (!$order) {
+            return 'fail';
+        }
+        // 将订单标记为已支付
+        $order->update([
+            'payment_at' => Carbon::now(),
+            'payment_no' => $result->transaction_id,
+        ]);
+        $order->coupon->item->update(['payment_status' => 1]);
+        return Pay::wechat()->success();
     }
 
     /**

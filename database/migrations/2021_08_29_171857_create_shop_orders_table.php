@@ -27,6 +27,7 @@ class CreateShopOrdersTable extends Migration
             $table->string('address')->comment('地址');
             $table->tinyInteger('status')->default(0)->comment('当前状态 0: 未发货 , 1: 已发货');
             $table->tinyInteger('payment_status')->default(0)->comment('当前状态 0: 未发货 , 1: 已发货');
+            $table->string('payment_no')->nullable();
             $table->timestamp('payment_at')->nullable();
             $table->timestamps();
         });

@@ -43,6 +43,8 @@ namespace App\Models;
  * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereProductId($value)
  * @property-read \App\Models\Merchant $merchant
+ * @property int|null $shop_user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereShopUserId($value)
  */
 class Order extends BaseModel
 {
