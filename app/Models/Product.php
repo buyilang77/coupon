@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Product
@@ -31,7 +30,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends BaseModel
 {
-    use HasFactory;
-
     protected $casts = ['carousel' => 'array'];
+
+    /**
+     * @return BelongsTo
+     */
+    public function merchant(): BelongsTo
+    {
+        return $this->belongsTo(Merchant::class);
+    }
 }
