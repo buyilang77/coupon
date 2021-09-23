@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * App\Models\Order
  *
@@ -48,8 +50,6 @@ namespace App\Models;
  */
 class Order extends BaseModel
 {
-    use HasFactory;
-
     protected $casts = [
         'region' => 'array',
         'code'   => 'array',
