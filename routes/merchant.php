@@ -45,6 +45,7 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::patch('coupons/items/{item}', [CouponsItemsController::class, 'update']);
     Route::resource('logistics-companies', LogisticsCompaniesController::class);
     Route::resource('orders', OrdersController::class);
-    Route::patch('orders/{order}/shipment', [OrdersController::class, 'ship'])->name('orders.shipment');
+    Route::patch('orders/{order}/shipment', [OrdersController::class, 'ship']);
+    Route::get('shop-orders', [OrdersController::class, 'shopIndex']);
     Route::post('upload-image', [UploadController::class, 'store'])->name('store');
 });
