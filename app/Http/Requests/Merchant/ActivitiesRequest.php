@@ -32,7 +32,7 @@ class ActivitiesRequest extends FormRequest
             'products'             => 'required|array',
             'start_time'           => 'required|date',
             'end_time'             => 'required|date',
-            'status'               => 'required|integer|in:0,1',
+//            'status'               => 'required|integer|in:0,1',
         ];
     }
 }
