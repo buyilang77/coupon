@@ -64,4 +64,18 @@ class OrdersController extends MainController
         }
         return custom_response(null, '106');
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function shopIndex(): JsonResponse
+    {
+        $orders = QueryBuilder::for($this->user()->shopOrder())
+            ->with('coupon')
+            ->orderByDesc('id')
+            ->paginate($this->perPage);
+        return custom_response($orders);
+    }
 }

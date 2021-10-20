@@ -16,6 +16,13 @@ class ActivityResource extends JsonResource
     public function toArray($request): array
     {
         $qr_code_link = config('domain.front-end-h5') . '/#/coupons/' . $this->resource->id;
+        if (now()->timestamp < strtotime($this->resource->start_time)) {
+            $status = 0;
+        } elseif (now()->timestamp <= strtotime($this->resource->end_time)) {
+            $status = 1;
+        } else {
+            $status = 2;
+        }
         return [
             'id'                   => $this->resource->id,
             'qr_code_link'         => $qr_code_link,
@@ -27,7 +34,7 @@ class ActivityResource extends JsonResource
             'products'             => $this->resource->products,
             'start_time'           => $this->resource->start_time,
             'end_time'             => $this->resource->end_time,
-            'status'               => $this->resource->status,
+            'status'               => $status,
             'created_at'           => $this->resource->created_at->toDateTimeString(),
         ];
     }

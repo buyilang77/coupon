@@ -78,43 +78,18 @@ class CouponsController extends MainController
         $coupon->quantity = $data['quantity'];
         $coupon->start_number = $data['start_number'];
         $coupon->length = $data['length'];
-        $coupon_items_id = $coupon->item->pluck('id')->all();
-        $cases = [];
         DB::beginTransaction();
         try {
             $coupon->update($data);
-
-            if ($coupon->item->isEmpty()) {
-                $coupon_item = $this->generateCoupon(
-                    $coupon->id,
-                    $data['prefix'],
-                    $data['quantity'],
-                    $data['start_number'],
-                    $data['length'],
-                    $status
-                );
-                CouponItem::insert($coupon_item);
-            } else {
-                $coupon_item = $this->generateCoupon(
-                    $coupon->id,
-                    $coupon->prefix,
-                    $coupon->quantity,
-                    $coupon->start_number,
-                    $coupon->length,
-                    $status,
-                    false
-                );
-
-                foreach ($coupon_items_id as $key => $item) {
-                    $cases[] = "WHEN `id` = {$item} THEN '{$coupon_item[$key]['code']}'";
-                }
-                $cases = implode(' ', $cases);
-
-                $coupon_items_id = implode(',', $coupon_items_id);
-                $statement = "UPDATE `coupon_items` SET `code` = (CASE {$cases} END), `open_status` = {$status} WHERE `id` IN ({$coupon_items_id})";
-
-                DB::update($statement);
-            }
+            $coupon_item = $this->generateCoupon(
+                $coupon->id,
+                $data['prefix'],
+                $data['quantity'],
+                $data['start_number'],
+                $data['length'],
+                $status
+            );
+            CouponItem::insert($coupon_item);
             DB::commit();
             return custom_response(null, '103');
         } catch (\Exception $exception) {

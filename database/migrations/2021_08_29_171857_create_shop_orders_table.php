@@ -17,6 +17,7 @@ class CreateShopOrdersTable extends Migration
             $table->id();
             $table->bigInteger('shop_user_id')->comment('用户ID');
             $table->bigInteger('coupon_id')->comment('所属活动');
+            $table->bigInteger('merchant_id')->comment('商户ID');
             $table->string('order_no')->comment('订单号');
             $table->bigInteger('amount');
             $table->tinyInteger('type')->comment('订单类型 1: 购买, 2: 受赠');

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\ActivitiesController;
 use App\Http\Controllers\Admin\AuthorizationsController;
 use App\Http\Controllers\Admin\MerchantsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\ShopUsersController;
+use App\Http\Controllers\Admin\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +30,7 @@ Route::middleware(['auth:admin-api', 'cors'])->group(function () {
     // 当前登录用户信息
     Route::get('user', [UsersController::class, 'mine']);
     Route::resource('merchants', MerchantsController::class);
+    Route::get('shopUsers', [ShopUsersController::class, 'users']);
+    Route::resource('products', ProductsController::class);
+    Route::resource('activities', ActivitiesController::class);
 });

@@ -11,7 +11,7 @@ class UploadRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,10 +21,10 @@ class UploadRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'file' => 'mimes:jpeg,bmp,png'
+            'file' => 'mimes:jpeg,bmp,png,xlsx'
         ];
     }
 }

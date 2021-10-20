@@ -111,6 +111,14 @@ class Merchant extends Authenticatable implements JWTSubject
     }
 
     /**
+     * @return HasMany
+     */
+    public function shopOrder(): HasMany
+    {
+        return $this->hasMany(ShopOrder::class);
+    }
+
+    /**
      * Prepare a date for array / JSON serialization.
      *
      * @param  \DateTimeInterface  $date
