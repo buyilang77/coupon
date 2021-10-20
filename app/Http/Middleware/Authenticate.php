@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\SystemDomain;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -37,5 +38,21 @@ class Authenticate extends Middleware
             return $this->auth->shouldUse($guard);
         }
         $this->unauthenticated($request, $guards);
+    }
+
+    /**
+     * Handle an unauthenticated user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  array  $guards
+     * @return void
+     *
+     * @throws \Illuminate\Auth\AuthenticationException
+     */
+    protected function unauthenticated($request, array $guards)
+    {
+        throw new AuthenticationException(
+            '您还没有登录.', $guards, $this->redirectTo($request)
+        );
     }
 }
