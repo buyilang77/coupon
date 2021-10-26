@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers\Merchant;
 
+use App\Exports\CouponItemExport;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Merchant\UploadRequest;
-use App\Imports\CouponItemImport;
 use App\Models\Coupon;
-use Illuminate\Http\JsonResponse;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportController extends Controller
 {
     /**
-     * @param UploadRequest $request
-     * @param Coupon $coupon
-     * @return JsonResponse
+     * @return BinaryFileResponse
      */
-    public function couponItem(UploadRequest $request, Coupon $coupon): JsonResponse
+    public function couponItem(Coupon $coupon): BinaryFileResponse
     {
-        Excel::import(new CouponItemImport($coupon), $request->file('file'));
-        return custom_response([])->setStatusCode(201);
+        return Excel::download(new CouponItemExport($coupon), 'CouponItem.xlsx');
     }
 }

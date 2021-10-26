@@ -135,6 +135,7 @@ class ShopOrdersController extends MainController
     {
         $data = $request->validated();
         $shopOrderItems = $order->item()->where('status', 1)->limit($data['amount'])->get();
+        dd($shopOrderItems);
         $couponItemIds = $shopOrderItems->pluck('coupon_item_id');
         $couponItems = CouponItem::whereIn('id', $couponItemIds)->where('redemption_status', 0)->get();
         if ($couponItems->isEmpty()) {
