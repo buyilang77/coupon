@@ -11,7 +11,7 @@ class OrderRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class OrderRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'coupon_id'  => 'required|integer',
@@ -35,6 +35,7 @@ class OrderRequest extends FormRequest
             'product_id' => 'required|integer',
             'region'     => 'required|array',
             'address'    => 'required|string|max:100',
+            'remark'     => 'required|string|max:100',
         ];
     }
 }

@@ -16,5 +16,7 @@ use App\Http\Controllers\Frontend\InformationController;
 use App\Http\Controllers\Frontend\OrdersController;
 
 Route::get('coupons/{coupon}', [CouponsController::class, 'show']);
+Route::get('products/{product}', [CouponsController::class, 'product']);
+Route::post('check/coupon-code', [CouponsController::class, 'check']);
 Route::post('orders', [OrdersController::class, 'store']);
 Route::get('merchant/information/{coupon}', [InformationController::class, 'merchant']);
