@@ -8,6 +8,7 @@ use App\Http\Controllers\Merchant\ExportController;
 use App\Http\Controllers\Merchant\LogisticsCompaniesController;
 use App\Http\Controllers\Merchant\OrdersController;
 use App\Http\Controllers\Merchant\ProductsController;
+use App\Http\Controllers\Merchant\StoresController;
 use App\Http\Controllers\Merchant\UploadController;
 use App\Http\Controllers\Merchant\UsersController;
 
@@ -39,6 +40,7 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::resource('coupons', CouponsController::class);
     Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index']);
     Route::resource('products', ProductsController::class);
+    Route::resource('stores', StoresController::class);
     Route::patch('coupons/items/bulk-update', [CouponsItemsController::class, 'bulkUpdate']);
     Route::patch('coupons/items/{item}', [CouponsItemsController::class, 'update']);
     Route::resource('logistics-companies', LogisticsCompaniesController::class);

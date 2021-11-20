@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Frontend;
 
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CouponResource extends JsonResource
@@ -15,6 +16,7 @@ class CouponResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $stores = Store::where('merchant_id', $this->resource->merchant_id)->get();
         return [
             'id'                   => $this->resource->id,
             'title'                => $this->resource->title,
@@ -24,6 +26,8 @@ class CouponResource extends JsonResource
             'start_time'           => $this->resource->start_time,
             'end_time'             => $this->resource->end_time,
             'products'             => Product::whereIn('id', $this->resource->products)->get(['id', 'name', 'price', 'carousel', 'description']),
+            'stores'               => $stores,
+            'stores_array'         => $stores->pluck('name'),
             'total_shipments'      => $this->resource->order->count(),
         ];
     }

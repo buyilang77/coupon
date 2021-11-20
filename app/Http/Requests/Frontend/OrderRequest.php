@@ -24,18 +24,21 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'coupon_id'  => 'required|integer',
-            'consignee'  => 'required|string|max:20',
-            'code'       => 'required|string',
-            'password'   => 'required|string',
-            'phone'      => [
+            'coupon_id'        => 'required|integer',
+            'store_id'         => 'nullable|integer',
+            'consignee'        => 'nullable|string|max:20',
+            'code'             => 'nullable|string',
+            'password'         => 'nullable|string',
+            'phone'            => [
                 'required',
                 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199)\d{8}$/',
             ],
-            'product_id' => 'required|integer',
-            'region'     => 'required|array',
-            'address'    => 'required|string|max:100',
-            'remark'     => 'required|string|max:100',
+            'product_id'       => 'required|integer',
+            'region'           => 'nullable|array',
+            'address'          => 'nullable|string|max:100',
+            'remark'           => 'nullable|string|max:100',
+            'appointment_time' => 'nullable|string',
+            'type'             => 'required',
         ];
     }
 }
