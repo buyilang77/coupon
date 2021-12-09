@@ -4,6 +4,8 @@ use App\Http\Controllers\Merchant\ActivitiesController;
 use App\Http\Controllers\Merchant\AuthorizationsController;
 use App\Http\Controllers\Merchant\CouponsController;
 use App\Http\Controllers\Merchant\CouponsItemsController;
+use App\Http\Controllers\Merchant\RechargeCardController;
+use App\Http\Controllers\Merchant\RechargeCardItemsController;
 use App\Http\Controllers\Merchant\ExportController;
 use App\Http\Controllers\Merchant\LogisticsCompaniesController;
 use App\Http\Controllers\Merchant\OrdersController;
@@ -37,8 +39,10 @@ Route::middleware('auth:merchant-api')->group(function() {
     // 编辑登录用户信息
     Route::patch('user', [UsersController::class, 'update']);
     Route::resource('activities', ActivitiesController::class);
-    Route::resource('coupons', CouponsController::class);
-    Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index']);
+    Route::resource('recharge-card', RechargeCardController::class);
+    Route::get('recharge-card/{coupon}/items', [RechargeCardItemsController::class, 'index']);
+//    Route::resource('coupons', CouponsController::class);
+//    Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index']);
     Route::resource('products', ProductsController::class);
     Route::resource('stores', StoresController::class);
     Route::patch('coupons/items/bulk-update', [CouponsItemsController::class, 'bulkUpdate']);

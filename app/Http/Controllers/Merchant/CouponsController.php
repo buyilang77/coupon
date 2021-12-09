@@ -22,7 +22,7 @@ class CouponsController extends MainController
     public function index(): JsonResponse
     {
         $coupon = QueryBuilder::for($this->user()->coupon())->orderByDesc('id')->allowedFilters([
-            'id', 'status', 'title',
+            'id', 'type', 'title',
         ])->paginate($this->perPage);
         return custom_response(CouponResource::collection($coupon)->response()->getData());
     }

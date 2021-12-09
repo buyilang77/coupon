@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\MainController;
 use App\Http\Resources\Merchant\CouponItemResource;
-use App\Models\Coupon;
 use App\Models\CouponItem;
 use App\Models\RechargeCard;
 use Illuminate\Http\JsonResponse;
@@ -12,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class CouponsItemsController extends MainController
+class RechargeCardItemsController extends MainController
 {
     /**
      * @param RechargeCard $coupon
