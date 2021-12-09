@@ -4,7 +4,7 @@ namespace App\Http\Requests\Merchant;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CouponRechargeCardRequest extends FormRequest
+class RechargeCardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

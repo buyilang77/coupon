@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\MainController;
-use App\Http\Requests\Merchant\CouponRechargeCardRequest;
-use App\Http\Resources\Merchant\CouponRechargeCardResource;
+use App\Http\Requests\Merchant\RechargeCardRequest;
+use App\Http\Resources\Merchant\RechargeCardResource;
 use App\Models\RechargeCard;
 use App\Models\Merchant;
 use Illuminate\Http\JsonResponse;
@@ -22,15 +22,15 @@ class RechargeCardController extends MainController
         $coupon = QueryBuilder::for($this->user()->rechargeCard())->orderByDesc('id')->allowedFilters([
             'id', 'type', 'name',
         ])->paginate($this->perPage);
-        return custom_response(CouponRechargeCardResource::collection($coupon)->response()->getData());
+        return custom_response(RechargeCardResource::collection($coupon)->response()->getData());
     }
 
     /**
-     * @param CouponRechargeCardRequest $request
+     * @param RechargeCardRequest $request
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function store(CouponRechargeCardRequest $request): JsonResponse
+    public function store(RechargeCardRequest $request): JsonResponse
     {
         if ($this->user()->status !== Merchant::STATUS_ENABLE) {
             return custom_response(null, '112')->setStatusCode(403);
@@ -56,16 +56,16 @@ class RechargeCardController extends MainController
      */
     public function show(RechargeCard $rechargeCard): JsonResponse
     {
-        return custom_response(CouponRechargeCardResource::make($rechargeCard));
+        return custom_response(RechargeCardResource::make($rechargeCard));
     }
 
     /**
-     * @param CouponRechargeCardRequest $request
+     * @param RechargeCardRequest $request
      * @param RechargeCard $rechargeCard
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function update(CouponRechargeCardRequest $request, RechargeCard $rechargeCard): JsonResponse
+    public function update(RechargeCardRequest $request, RechargeCard $rechargeCard): JsonResponse
     {
         $data = $request->validated();
 

@@ -40,9 +40,15 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::patch('user', [UsersController::class, 'update']);
     Route::resource('activities', ActivitiesController::class);
     Route::resource('recharge-card', RechargeCardController::class);
-    Route::get('recharge-card/{coupon}/items', [RechargeCardItemsController::class, 'index']);
-//    Route::resource('coupons', CouponsController::class);
-//    Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index']);
+    Route::get('recharge-card/{item}/items', [RechargeCardItemsController::class, 'index']);
+    Route::post('recharge-card/{item}/items', [RechargeCardItemsController::class, 'store']);
+    Route::patch('recharge-card/items/bulk-update', [RechargeCardItemsController::class, 'bulkUpdate']);
+    Route::patch('recharge-card/items/{item}', [RechargeCardItemsController::class, 'update']);
+    Route::get('export/recharge-card/{item}', [ExportController::class, 'couponItem']);
+
+
+    Route::resource('coupons', CouponsController::class);
+    Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index']);
     Route::resource('products', ProductsController::class);
     Route::resource('stores', StoresController::class);
     Route::patch('coupons/items/bulk-update', [CouponsItemsController::class, 'bulkUpdate']);

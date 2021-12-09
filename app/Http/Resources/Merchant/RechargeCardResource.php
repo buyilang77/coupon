@@ -4,7 +4,7 @@ namespace App\Http\Resources\Merchant;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CouponRechargeCardResource extends JsonResource
+class RechargeCardResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

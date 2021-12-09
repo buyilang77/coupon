@@ -15,10 +15,10 @@ use Spatie\QueryBuilder\QueryBuilder;
 class CouponsItemsController extends MainController
 {
     /**
-     * @param RechargeCard $coupon
+     * @param Coupon $coupon
      * @return AnonymousResourceCollection
      */
-    public function index(RechargeCard $coupon): AnonymousResourceCollection
+    public function index(Coupon $coupon): AnonymousResourceCollection
     {
         $coupon = QueryBuilder::for($coupon->item())->orderByDesc('id')->allowedFilters([
             'open_status','redemption_status', 'code',
