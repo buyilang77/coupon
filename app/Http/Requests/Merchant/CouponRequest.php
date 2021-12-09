@@ -26,7 +26,7 @@ class CouponRequest extends FormRequest
         return [
             'title'                => 'required|string|max:200',
             'services_phone'       => 'string|max:15|nullable',
-            'activity_description' => 'string|max:200|nullable',
+            'activity_description' => 'string|nullable',
             'products'             => 'required|array',
             'start_time'           => 'required|date',
             'end_time'             => 'required|date',
