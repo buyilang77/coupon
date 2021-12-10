@@ -60,5 +60,6 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::post('upload-image', [UploadController::class, 'store']);
     Route::post('import/{coupon}/item', [UploadController::class, 'couponItem']);
     Route::get('exports/order', [ExportController::class, 'order']);
+    Route::get('import/template', [ExportController::class, 'couponItemTemplate']);
 });
 Route::get('export/{coupon}/item', [ExportController::class, 'couponItem']);

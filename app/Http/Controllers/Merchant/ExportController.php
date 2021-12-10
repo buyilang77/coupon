@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Merchant;
 
 use App\Exports\CouponItemExport;
+use App\Exports\CouponItemTemplateExport;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\RechargeCard;
@@ -18,6 +19,15 @@ class ExportController extends Controller
     public function couponItem(Coupon $coupon): BinaryFileResponse
     {
         return Excel::download(new CouponItemExport($coupon), 'CouponItem.xlsx');
+    }
+
+    /**
+     * @param Coupon $coupon
+     * @return BinaryFileResponse
+     */
+    public function couponItemTemplate(Coupon $coupon): BinaryFileResponse
+    {
+        return Excel::download(new CouponItemTemplateExport($coupon), 'CouponItemTemplate.xlsx');
     }
 
     /**
