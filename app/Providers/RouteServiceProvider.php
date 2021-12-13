@@ -44,6 +44,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::domain(config('domain.admin-api'))
                 ->middleware('admin-api')
                 ->group(base_path('routes/admin.php'));
+
+            Route::domain(config('domain.recharge-card-api'))
+                ->middleware('recharge-card-api')
+                ->group(base_path('routes/recharge-card.php'));
         });
     }
 
