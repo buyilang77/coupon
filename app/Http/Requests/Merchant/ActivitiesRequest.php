@@ -28,7 +28,7 @@ class ActivitiesRequest extends FormRequest
             'original_price'       => 'required|numeric',
             'title'                => 'required|string|max:200',
             'services_phone'       => 'string|max:15|nullable',
-            'activity_description' => 'string|max:200|nullable',
+            'activity_description' => 'string|nullable',
             'products'             => 'required|array',
 //            'status'               => 'required|integer|in:0,1',
         ];
