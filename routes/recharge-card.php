@@ -12,7 +12,10 @@
 |
 */
 
+use App\Http\Controllers\RechargeCard\CheckController;
 use App\Http\Controllers\RechargeCard\ProductsController;
 
 Route::get('{username}/products', [ProductsController::class, 'index']);
 Route::get('products/{product}', [ProductsController::class, 'show']);
+Route::post('{product}/check-card', [CheckController::class, 'check']);
+Route::post('orders', [CheckController::class, 'store']);
