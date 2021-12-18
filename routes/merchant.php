@@ -44,9 +44,7 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::post('recharge-card/{item}/items', [RechargeCardItemsController::class, 'store']);
     Route::patch('recharge-card/items/bulk-update', [RechargeCardItemsController::class, 'bulkUpdate']);
     Route::patch('recharge-card/items/{item}', [RechargeCardItemsController::class, 'update']);
-    Route::get('export/recharge-card/{item}', [ExportController::class, 'couponItem']);
-
-
+    Route::get('export/recharge-card/{item}', [ExportController::class, 'rechargeCardItem']);
     Route::resource('coupons', CouponsController::class);
     Route::get('coupons/{coupon}/items', [CouponsItemsController::class, 'index']);
     Route::resource('products', ProductsController::class);
@@ -58,8 +56,10 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::patch('orders/{order}/shipment', [OrdersController::class, 'ship']);
     Route::get('shop-orders', [OrdersController::class, 'shopIndex']);
     Route::post('upload-image', [UploadController::class, 'store']);
-    Route::post('import/{coupon}/item', [UploadController::class, 'couponItem']);
+    Route::post('import/coupon/{coupon}/item', [UploadController::class, 'importCouponItem']);
+    Route::post('import/recharge-card/{card}/item', [UploadController::class, 'importRechargeCard']);
     Route::get('exports/order', [ExportController::class, 'order']);
+    Route::get('import/template/recharge-card', [ExportController::class, 'rechargeCardTemplate']);
     Route::get('import/template', [ExportController::class, 'couponItemTemplate']);
 });
 Route::get('export/{coupon}/item', [ExportController::class, 'couponItem']);
