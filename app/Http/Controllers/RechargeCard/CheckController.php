@@ -15,15 +15,18 @@ class CheckController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function check(Request $request): JsonResponse
+    public function check(Request $request, Product $product): JsonResponse
     {
         $data = $request->validate(
             [
-                'code' => 'required',
-                'password' => 'required'
+                'code' => 'required|string',
+                'password' => 'required|string'
             ],
         );
-        $item = RechargeCardItem::where($data)->first();
+        $item = RechargeCardItem::where($data)
+            ->join('recharge_cards', 'recharge_cards.id', '=', 'recharge_card_items.recharge_card_id')
+            ->where('recharge_cards.merchant_id', $product->merchant_id)
+            ->first();
         if (!$item instanceof RechargeCardItem) {
             return custom_response(null, '107')->setStatusCode(403);
         }
