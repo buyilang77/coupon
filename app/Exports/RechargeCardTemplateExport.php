@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Sheet;
 
-class CouponItemTemplateExport implements FromCollection, WithEvents
+class RechargeCardTemplateExport implements FromCollection, WithEvents
 {
     /**
     * @return Collection
@@ -19,6 +19,7 @@ class CouponItemTemplateExport implements FromCollection, WithEvents
         $header = [
             '兑换码',
             '密码',
+            '可用余额',
         ];
         return new Collection([$header]);
     }
@@ -33,9 +34,10 @@ class CouponItemTemplateExport implements FromCollection, WithEvents
         });
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getDelegate()->getStyle('A1:B1')->getFont()->getColor()->setARGB('FFFF0000');
+                $event->sheet->getDelegate()->getStyle('A1:C1')->getFont()->getColor()->setARGB('FFFF0000');
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(20);
             }
         ];
     }
