@@ -10,6 +10,7 @@ use App\Http\Controllers\Merchant\ExportController;
 use App\Http\Controllers\Merchant\LogisticsCompaniesController;
 use App\Http\Controllers\Merchant\OrdersController;
 use App\Http\Controllers\Merchant\ProductsController;
+use App\Http\Controllers\Merchant\RechargeCardOrdersController;
 use App\Http\Controllers\Merchant\StoresController;
 use App\Http\Controllers\Merchant\UploadController;
 use App\Http\Controllers\Merchant\UsersController;
@@ -59,7 +60,10 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::post('import/coupon/{coupon}/item', [UploadController::class, 'importCouponItem']);
     Route::post('import/recharge-card/{card}/item', [UploadController::class, 'importRechargeCard']);
     Route::get('exports/order', [ExportController::class, 'order']);
+    Route::get('export/{coupon}/item', [ExportController::class, 'couponItem']);
     Route::get('import/template/recharge-card', [ExportController::class, 'rechargeCardTemplate']);
     Route::get('import/template', [ExportController::class, 'couponItemTemplate']);
+
+    Route::resource('recharge-card/orders', RechargeCardOrdersController::class);
+    Route::patch('recharge-card/orders/writeOff', [RechargeCardOrdersController::class, 'writeOff']);
 });
-Route::get('export/{coupon}/item', [ExportController::class, 'couponItem']);
