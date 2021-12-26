@@ -40,6 +40,10 @@ Route::middleware('auth:merchant-api')->group(function() {
     // 编辑登录用户信息
     Route::patch('user', [UsersController::class, 'update']);
     Route::resource('activities', ActivitiesController::class);
+
+    Route::resource('recharge-card/orders', RechargeCardOrdersController::class);
+//    Route::patch('recharge-card/orders/writeOff', [RechargeCardOrdersController::class, 'writeOff']);
+
     Route::resource('recharge-card', RechargeCardController::class);
     Route::get('recharge-card/{item}/items', [RechargeCardItemsController::class, 'index']);
     Route::post('recharge-card/{item}/items', [RechargeCardItemsController::class, 'store']);
@@ -63,7 +67,4 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::get('export/{coupon}/item', [ExportController::class, 'couponItem']);
     Route::get('import/template/recharge-card', [ExportController::class, 'rechargeCardTemplate']);
     Route::get('import/template', [ExportController::class, 'couponItemTemplate']);
-
-    Route::resource('recharge-card/orders', RechargeCardOrdersController::class);
-    Route::patch('recharge-card/orders/writeOff', [RechargeCardOrdersController::class, 'writeOff']);
 });

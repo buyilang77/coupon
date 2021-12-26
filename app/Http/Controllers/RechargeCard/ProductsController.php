@@ -33,6 +33,6 @@ class ProductsController extends MainController
      */
     public function show(Product $product): JsonResponse
     {
-        return custom_response($product);
+        return custom_response($product->load('merchant'));
     }
 }

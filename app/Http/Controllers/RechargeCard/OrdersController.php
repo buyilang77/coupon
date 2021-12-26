@@ -2,55 +2,50 @@
 
 namespace App\Http\Controllers\RechargeCard;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\MainController;
+use App\Http\Requests\RechargeCard\OrderRequest;
+use App\Models\Product;
+use App\Models\RechargeCardItem;
+use App\Models\RechargeCardOrder;
+use DB;
+use Illuminate\Http\JsonResponse;
 
-class OrdersController extends Controller
+class OrdersController extends MainController
 {
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @param OrderRequest $request
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function store()
+    public function store(OrderRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $coupon = Coupon::find($data['coupon_id']);
-        $data['total_amount'] = $data['amount'] * $coupon->price;
-        $data['type'] = 1;
-        $condition = [
-            'payment_status'    => 0,
-            'redemption_status' => 0,
-        ];
-        $couponItems = $coupon->item()->where($condition)->limit($data['amount'])->get(['id']);
+        $condition = \Arr::only($data, ['code', 'password']);
+        $card = RechargeCardItem::where($condition)->first();
+        $product = Product::find($data['product_id']);
+        $price = (float) $product->price;
+        $amount = $data['amount'];
+
+        $total_amount = $amount * $price;
+        if ($amount > intval($card->balance / $price)) {
+            return custom_response([], '116')->setStatusCode(403);
+        }
+        $data['total_amount'] = $data['amount'] * $price;
+        $data['merchant_id'] = $product->merchant_id;
+        $data['recharge_card_item_id'] = $card->id;
+        unset($data['code']);
+        unset($data['password']);
         DB::beginTransaction();
-        $order = $this->user()->order()->create($data);
         try {
-            foreach ($couponItems as $couponItem) {
-                ShopOrderItem::create([
-                    'shop_order_id'  => $order->id,
-                    'coupon_item_id' => $couponItem->id,
-                    'status'         => 1,
-                ]);
-                $couponItem->payment_status = 1;
-                $couponItem->save();
-            }
+            $card->balance = $card->balance - $total_amount;
+            $card->save();
+            RechargeCardOrder::create($data);
             DB::commit();
         } catch (\Throwable $e) {
             \Log::error($e->getMessage());
             DB::rollBack();
         }
-        $prepay = [
-            'out_trade_no' => $order->order_no,
-            'description'  => $coupon->title,
-            'amount'       => [
-                'total' => $data['total_amount'] * 100,
-            ],
-            'payer'        => [
-                'openid' => $this->user()->mp_openid,
-            ],
-        ];
-
-        $result = Pay::wechat()->mp($prepay);
-        return custom_response($result, '114');
+        return custom_response([], '114');
     }
 }

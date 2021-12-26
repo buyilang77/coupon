@@ -16,10 +16,11 @@ class CreateRechargeCardOrdersTable extends Migration
         Schema::create('recharge_card_orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_num');
-            $table->bigInteger('card_id')->comment('用户ID');
-            $table->bigInteger('coupon_id')->comment('所属活动');
+            $table->bigInteger('recharge_card_item_id');
+            $table->bigInteger('product_id');
             $table->bigInteger('store_id')->comment('门店');
             $table->bigInteger('merchant_id')->comment('商户ID');
+            $table->integer('amount');
             $table->decimal('total_amount')->comment('总金额');
             $table->string('contacts')->comment('收货人');
             $table->string('phone')->comment('电话');

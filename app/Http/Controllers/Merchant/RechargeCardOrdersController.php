@@ -6,6 +6,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\RechargeCardOrderRequest;
 use App\Models\RechargeCardOrder;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class RechargeCardOrdersController extends MainController
@@ -19,7 +20,8 @@ class RechargeCardOrdersController extends MainController
     {
         $orders = QueryBuilder::for($this->user()->rechargeCardOrder())
             ->orderByDesc('id')
-            ->allowedFilters(['title', 'status'])
+            ->with(['product', 'rechargeCardItem.rechargeCard'])
+            ->allowedFilters(['order_num', 'status'])
             ->paginate($this->perPage);
         return custom_response($orders);
     }
@@ -31,11 +33,21 @@ class RechargeCardOrdersController extends MainController
      * @param RechargeCardOrder $order
      * @return JsonResponse
      */
-    public function writeOff(RechargeCardOrderRequest $request, RechargeCardOrder $order): JsonResponse
+    public function update(RechargeCardOrderRequest $request, RechargeCardOrder $order): JsonResponse
     {
         $data = $request->validated();
         $data['status'] = 1;
+        $data['write_off_at'] = now()->toDateTimeString();
         $order->update($data);
         return custom_response(null, '115');
+    }
+
+    /**
+     * @param RechargeCardOrder $order
+     * @return JsonResponse
+     */
+    public function show(RechargeCardOrder $order): JsonResponse
+    {
+        return custom_response($order->load(['product', 'rechargeCardItem']));
     }
 }
