@@ -59,7 +59,10 @@ class Coupon extends BaseModel
 {
     use HasFactory;
 
-    protected $casts = ['products' => 'array'];
+    protected $casts = [
+        'products'      => 'array',
+        'delivery_type' => 'array',
+    ];
 
     // Coupon status
     public const STATUS_ENABLE = 1;

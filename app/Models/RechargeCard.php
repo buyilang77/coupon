@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RechargeCard extends BaseModel
 {
-    protected $casts = ['carousel' => 'array'];
+    protected $casts = [
+        'carousel'      => 'array',
+        'delivery_type' => 'array',
+    ];
 
     /**
      * @return HasMany

@@ -32,6 +32,7 @@ class ActivityResource extends JsonResource
             'services_phone'       => $this->resource->services_phone,
             'activity_description' => $this->resource->activity_description,
             'products'             => $this->resource->products,
+            'delivery_type'        => $this->resource->delivery_type,
             'start_time'           => $this->resource->start_time,
             'end_time'             => $this->resource->end_time,
             'status'               => $status,

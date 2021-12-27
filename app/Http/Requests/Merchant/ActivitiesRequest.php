@@ -30,7 +30,9 @@ class ActivitiesRequest extends FormRequest
             'services_phone'       => 'string|max:15|nullable',
             'activity_description' => 'string|nullable',
             'products'             => 'required|array',
-//            'status'               => 'required|integer|in:0,1',
+            'delivery_type'        => 'required|array',
+            'start_time'           => 'required|date',
+            'end_time'             => 'required|date',
         ];
     }
 }

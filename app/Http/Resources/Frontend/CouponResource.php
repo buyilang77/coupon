@@ -26,6 +26,7 @@ class CouponResource extends JsonResource
             'start_time'           => $this->resource->start_time,
             'end_time'             => $this->resource->end_time,
             'products'             => Product::whereIn('id', $this->resource->products)->get(['id', 'name', 'price', 'carousel', 'description']),
+            'delivery_type'        => $this->resource->delivery_type,
             'stores'               => $stores,
             'stores_array'         => $stores->pluck('name'),
             'total_shipments'      => $this->resource->order->count(),

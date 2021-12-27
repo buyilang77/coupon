@@ -21,7 +21,8 @@ class RechargeCardResource extends JsonResource
             'denomination'         => $this->resource->denomination,
             'type'                 => $this->resource->type,
             'is_online'            => $this->resource->is_online,
-            'carousel'             => $this->resource->carousel ?? [],
+            'carousel'             => $this->resource->carousel,
+            'delivery_type'        => $this->resource->delivery_type,
             'remark'               => $this->resource->remark,
             'activity_description' => $this->resource->activity_description,
         ];

@@ -30,6 +30,7 @@ class RechargeCardRequest extends FormRequest
             'type'                 => 'required|integer',
             'is_online'            => 'required|integer',
             'carousel'             => 'array|nullable',
+            'delivery_type'        => 'required|array',
             'remark'               => 'string|nullable',
             'activity_description' => 'string|nullable',
         ];

@@ -42,7 +42,6 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::resource('activities', ActivitiesController::class);
 
     Route::resource('recharge-card/orders', RechargeCardOrdersController::class);
-//    Route::patch('recharge-card/orders/writeOff', [RechargeCardOrdersController::class, 'writeOff']);
 
     Route::resource('recharge-card', RechargeCardController::class);
     Route::get('recharge-card/{item}/items', [RechargeCardItemsController::class, 'index']);

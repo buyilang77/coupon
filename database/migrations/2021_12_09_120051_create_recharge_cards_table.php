@@ -21,6 +21,7 @@ class CreateRechargeCardsTable extends Migration
             $table->decimal('denomination')->default(0.00)->index();
             $table->tinyInteger('type')->comment('卡券形式 1:电子卡, 2:实物卡')->index();
             $table->tinyInteger('is_online')->nullable()->comment('实物卡销售 0:线下 1:线上')->index();
+            $table->json('delivery_type')->nullable();
             $table->json('carousel')->nullable()->comment('轮播图');
             $table->string('remark')->nullable()->comment('活动说明');
             $table->mediumText('activity_description')->nullable()->comment('活动介绍');
