@@ -19,6 +19,7 @@ class CouponResource extends JsonResource
         $stores = Store::where('merchant_id', $this->resource->merchant_id)->get();
         return [
             'id'                   => $this->resource->id,
+            'original_price'       => $this->resource->original_price,
             'title'                => $this->resource->title,
             'merchant'             => $this->resource->merchant,
             'services_phone'       => $this->resource->services_phone,

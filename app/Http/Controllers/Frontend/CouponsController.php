@@ -9,6 +9,7 @@ use App\Models\Coupon;
 use App\Models\CouponItem;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CouponsController extends MainController
 {
@@ -35,17 +36,18 @@ class CouponsController extends MainController
     }
 
     /**
-     * @param CheckRequest $request
+     * Display the specified resource.
+     *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function check(CheckRequest $request): JsonResponse
+    public function item(Request $request): JsonResponse
     {
-        $data = $request->validated();
-        $data['redemption_status'] = 0;
-        $couponItem = CouponItem::where($data)->first();
-        if (!$couponItem instanceof CouponItem) {
-            return custom_response(['status' => false]);
-        }
-        return custom_response(['status' => true]);
+        $condition = $request->validate([
+            'coupon_id' => 'required|integer',
+            'code'      => 'required|string',
+        ]);
+        $item = CouponItem::where($condition)->first();
+        return custom_response($item);
     }
 }
