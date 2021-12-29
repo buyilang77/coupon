@@ -16,7 +16,11 @@ class CouponResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $stores = Store::where('merchant_id', $this->resource->merchant_id)->get();
+        $condition = [
+            'merchant_id' => $this->resource->merchant_id,
+            'status'      => 1,
+        ];
+        $stores = Store::where($condition)->get();
         return [
             'id'                   => $this->resource->id,
             'original_price'       => $this->resource->original_price,

@@ -30,6 +30,9 @@ class OrdersController extends MainController
         ];
         $item = CouponItem::where($condition)->first();
         unset($data['password']);
+        $start_time = strtotime($item->start_time);
+        $end_time = strtotime($item->end_time);
+        dd($start_time, $end_time);
         if (!$item instanceof CouponItem) {
             return custom_response(null, '107')->setStatusCode(403);
         }
