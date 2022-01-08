@@ -44,6 +44,7 @@ class UserRequest extends FormRequest
             'PATCH' => $rule = array_merge($rule, [
                 'password' => 'nullable|alpha_dash|min:6',
                 'region'   => 'nullable|array',
+                'avatar'   => 'nullable|string',
             ])
         };
         return $rule;
