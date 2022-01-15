@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\RechargeCard;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
-use App\Models\RechargeCardItem;
+use App\Models\CouponItem;
+use App\Models\Merchant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,10 +13,10 @@ class CheckController extends Controller
 
     /**
      * @param Request $request
-     * @param Product $product
+     * @param Merchant $merchant
      * @return JsonResponse
      */
-    public function check(Request $request, Product $product): JsonResponse
+    public function check(Request $request, Merchant $merchant): JsonResponse
     {
         $data = $request->validate(
             [
@@ -24,11 +24,11 @@ class CheckController extends Controller
                 'password' => 'required|string'
             ],
         );
-        $item = RechargeCardItem::where($data)
-            ->join('recharge_cards', 'recharge_cards.id', '=', 'recharge_card_items.recharge_card_id')
-            ->where('recharge_cards.merchant_id', $product->merchant_id)
+        $item = CouponItem::where($data)
+            ->join('coupons', 'coupons.id', '=', 'coupon_items.coupon_id')
+            ->where('coupons.merchant_id', $merchant->id)
             ->first();
-        if (!$item instanceof RechargeCardItem) {
+        if (!$item instanceof CouponItem) {
             return custom_response(null, '107')->setStatusCode(403);
         }
         return custom_response($item);

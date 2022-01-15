@@ -21,7 +21,7 @@ class CouponsItemsController extends MainController
     public function index(Coupon $coupon): AnonymousResourceCollection
     {
         $coupon = QueryBuilder::for($coupon->item())->orderByDesc('id')->allowedFilters([
-            'open_status','redemption_status', 'code',
+            'open_status', 'redemption_status', 'code',
         ])->with('coupon')->select([
             'id', 'coupon_id', 'code', 'open_status', 'redemption_status', 'password'
         ])->paginate($this->perPage);
@@ -35,8 +35,11 @@ class CouponsItemsController extends MainController
      */
     public function update(Request $request, CouponItem $item): JsonResponse
     {
-        $data = $request->validate(['open_status' => 'required|in:0,1']);
-        $item->update(['open_status' => $data['open_status']]);
+        $data = $request->validate([
+            'open_status'                 => 'nullable|in:0,1',
+            'electronic_card_template_id' => 'nullable|integer'
+        ]);
+        $item->update($data);
         return custom_response(null, '103');
     }
 
@@ -47,7 +50,7 @@ class CouponsItemsController extends MainController
     public function bulkUpdate(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'items' => 'required|array',
+            'items'       => 'required|array',
             'open_status' => 'required|in:0,1'
         ]);
         CouponItem::whereIn('id', $data['items'])->update(['open_status' => $data['open_status']]);

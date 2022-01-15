@@ -16,6 +16,7 @@ class CreateCouponItemsTable extends Migration
         Schema::create('coupon_items', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('coupon_id')->index();
+            $table->bigInteger('electronic_card_template_id')->nullable();
             $table->string('code')->index();
             $table->string('password');
             $table->tinyInteger('open_status')->default(0)->comment('状态 0:未开启, 1:已开启')->index();
