@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Frontend\CheckController;
 use App\Http\Controllers\Frontend\CouponsController;
 use App\Http\Controllers\Frontend\InformationController;
 use App\Http\Controllers\Frontend\OrdersController;
@@ -21,3 +22,6 @@ Route::get('coupon-item', [CouponsController::class, 'item']);
 Route::get('products/{product}', [CouponsController::class, 'product']);
 Route::post('orders', [OrdersController::class, 'store']);
 Route::get('merchant/information/{coupon}', [InformationController::class, 'merchant']);
+Route::get('merchant/{username}', [InformationController::class, 'index']);
+Route::post('{merchant}/check-card', [CheckController::class, 'check']);
+
