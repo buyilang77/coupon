@@ -4,6 +4,7 @@ use App\Http\Controllers\Merchant\ActivitiesController;
 use App\Http\Controllers\Merchant\AuthorizationsController;
 use App\Http\Controllers\Merchant\CouponsController;
 use App\Http\Controllers\Merchant\CouponsItemsController;
+use App\Http\Controllers\Merchant\ElectronicCardTemplateController;
 use App\Http\Controllers\Merchant\RechargeCardController;
 use App\Http\Controllers\Merchant\RechargeCardItemsController;
 use App\Http\Controllers\Merchant\ExportController;
@@ -66,4 +67,6 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::get('export/{coupon}/item', [ExportController::class, 'couponItem']);
     Route::get('import/template/recharge-card', [ExportController::class, 'rechargeCardTemplate']);
     Route::get('import/template', [ExportController::class, 'couponItemTemplate']);
+
+    Route::resource('electronic-card-template', ElectronicCardTemplateController::class);
 });

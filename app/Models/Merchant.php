@@ -105,6 +105,14 @@ class Merchant extends Authenticatable implements JWTSubject
     /**
      * @return HasMany
      */
+    public function electronicCardTemplate(): HasMany
+    {
+        return $this->hasMany(ElectronicCardTemplate::class);
+    }
+
+    /**
+     * @return HasMany
+     */
     public function product(): HasMany
     {
         return $this->hasMany(Product::class);
