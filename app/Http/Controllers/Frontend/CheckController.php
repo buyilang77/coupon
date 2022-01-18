@@ -27,7 +27,7 @@ class CheckController extends Controller
         $item = CouponItem::where($data)
             ->join('coupons', 'coupons.id', '=', 'coupon_items.coupon_id')
             ->where('coupons.merchant_id', $merchant->id)
-            ->first();
+            ->first()->load('electronicCard');
         if (!$item instanceof CouponItem) {
             return custom_response(null, '107')->setStatusCode(403);
         }

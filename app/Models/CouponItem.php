@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -57,6 +56,14 @@ class CouponItem extends BaseModel
     public function coupon(): BelongsTo
     {
         return $this->belongsTo(Coupon::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function electronicCard(): BelongsTo
+    {
+        return $this->belongsTo(ElectronicCardTemplate::class, 'electronic_card_template_id');
     }
 
     /**
