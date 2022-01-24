@@ -22,9 +22,7 @@ class CouponsItemsController extends MainController
     {
         $coupon = QueryBuilder::for($coupon->item())->orderByDesc('id')->allowedFilters([
             'open_status', 'redemption_status', 'code',
-        ])->with('coupon')->select([
-            'id', 'coupon_id', 'code', 'open_status', 'redemption_status', 'password'
-        ])->paginate($this->perPage);
+        ])->with('coupon')->paginate($this->perPage);
         return CouponItemResource::collection($coupon);
     }
 
@@ -37,6 +35,7 @@ class CouponsItemsController extends MainController
     {
         $data = $request->validate([
             'open_status'                 => 'nullable|in:0,1',
+            'remark'                      => 'nullable|string',
             'electronic_card_template_id' => 'nullable|integer'
         ]);
         $item->update($data);

@@ -27,7 +27,7 @@ class ElectronicCardTemplateRequest extends FormRequest
             'from'        => 'required|string',
             'description' => 'nullable|string',
             'image'       => 'nullable|string',
-            'remark'      => 'nullable|string',
+            'name'        => 'nullable|string',
         ];
     }
 }
