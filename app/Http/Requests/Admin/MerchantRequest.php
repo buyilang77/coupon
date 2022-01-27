@@ -29,7 +29,7 @@ class MerchantRequest extends FormRequest
             'surname'       => 'string|max:10|nullable',
             'phone'         => [
                 'required',
-                'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199)\d{8}$/',
+                'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|195|198|199)\d{8}$/',
             ],
             'region'        => 'required|array',
             'address'       => 'string|max:100|nullable',
