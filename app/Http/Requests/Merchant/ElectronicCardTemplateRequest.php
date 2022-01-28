@@ -24,10 +24,10 @@ class ElectronicCardTemplateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from'        => 'required|string',
+            'name'        => 'required|string',
+            'from'        => 'nullable|string',
             'description' => 'nullable|string',
             'image'       => 'nullable|string',
-            'name'        => 'nullable|string',
         ];
     }
 }
