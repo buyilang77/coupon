@@ -7,6 +7,7 @@ use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 use App\Http\Controllers\MainController;
 use App\Http\Requests\Frontend\OrderRequest;
+use App\Models\Coupon;
 use App\Models\CouponItem;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
@@ -24,11 +25,12 @@ class OrdersController extends MainController
     public function store(OrderRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $condition = [
-            'code'     => $data['code'],
-            'password' => $data['password'],
-        ];
-        $item = CouponItem::where($condition)->first();
+        $coupon = Coupon::find($data['coupon_id']);
+        $item = CouponItem::whereRaw("BINARY `code`= ?",[$data['code']])
+            ->whereRaw("BINARY `password`= ?",[$data['password']])
+            ->where('coupon_id', $data['coupon_id'])->join('coupons', 'coupons.id', '=', 'coupon_items.coupon_id')
+            ->where('coupons.merchant_id', $coupon->merchant_id)
+            ->first();
         unset($data['password']);
         if (!$item instanceof CouponItem) {
             return custom_response(null, '107')->setStatusCode(403);

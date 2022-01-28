@@ -20,14 +20,15 @@ class CheckController extends Controller
     {
         $data = $request->validate(
             [
-                'code' => 'required|string',
+                'code'     => 'required|string',
                 'password' => 'required|string'
             ],
         );
-        $item = CouponItem::where($data)
+        $item = CouponItem::whereRaw("BINARY `code`= ?", [$data['code']])
+            ->whereRaw("BINARY `password`= ?", [$data['password']])
             ->join('coupons', 'coupons.id', '=', 'coupon_items.coupon_id')
             ->where('coupons.merchant_id', $merchant->id)
-            ->first()->load('electronicCard');
+            ->first()?->load('electronicCard');
         if (!$item instanceof CouponItem) {
             return custom_response(null, '107')->setStatusCode(403);
         }
