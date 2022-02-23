@@ -35,6 +35,8 @@ Route::put('authorizations/current', [AuthorizationsController::class, 'update']
 // 删除token
 Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy']);
 // 登录后可以访问的接口
+Route::get('coupons/qrcode/{item}', [ActivitiesController::class, 'qrcode'])->name('coupons.qrcode');
+
 Route::middleware('auth:merchant-api')->group(function() {
     // 当前登录用户信息
     Route::get('user', [UsersController::class, 'mine']);

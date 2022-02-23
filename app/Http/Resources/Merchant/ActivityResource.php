@@ -26,6 +26,7 @@ class ActivityResource extends JsonResource
         return [
             'id'                   => $this->resource->id,
             'qr_code_link'         => $qr_code_link,
+            'qr_code_preview'      => route('coupons.qrcode', $this->resource->id),
             'price'                => $this->resource->price,
             'original_price'       => $this->resource->original_price,
             'title'                => $this->resource->title,

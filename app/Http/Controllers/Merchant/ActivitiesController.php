@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\ActivitiesRequest;
-use App\Http\Requests\Merchant\CouponRequest;
 use App\Http\Resources\Merchant\ActivityResource;
-use App\Http\Resources\Merchant\CouponResource;
-use App\Models\Activity;
 use App\Models\Coupon;
-use App\Models\CouponItem;
 use App\Models\Merchant;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\JsonResponse;
 use DB;
+use Illuminate\Http\Response;
 use Log;
-use Str;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ActivitiesController extends MainController
@@ -88,5 +89,25 @@ class ActivitiesController extends MainController
         }
         DB::rollBack();
         return custom_response(null, '105')->setStatusCode(403);
+    }
+
+    /**
+     * @param int $item
+     * @return Response
+     */
+    public function qrcode(int $item): Response
+    {
+        $url = 'http://h5.hipi5.com/#/coupons/' . $item;
+        $result = Builder::create()
+            ->writer(new PngWriter())
+            ->writerOptions([])
+            ->data($url)
+            ->encoding(new Encoding('UTF-8'))
+            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+            ->size(400)
+            ->margin(10)
+            ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->build();
+        return response($result->getString(), 200, ['Content-Type' => $result->getMimeType()]);
     }
 }
