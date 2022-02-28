@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Merchant;
 use App\Http\Controllers\MainController;
 use App\Http\Requests\Merchant\UploadRequest;
 use App\Imports\CouponItemImport;
+use App\Imports\LogisticsImport;
 use App\Imports\RechargeCardImport;
 use App\Models\Coupon;
 use App\Models\RechargeCard;
@@ -44,6 +45,16 @@ class UploadController extends MainController
     public function importRechargeCard(UploadRequest $request, RechargeCard $card): JsonResponse
     {
         Excel::import(new RechargeCardImport($card), $request->file('file'));
+        return custom_response([])->setStatusCode(201);
+    }
+
+    /**
+     * @param UploadRequest $request
+     * @return JsonResponse
+     */
+    public function importLogistics(UploadRequest $request): JsonResponse
+    {
+        Excel::import(new LogisticsImport($this->user()), $request->file('file'));
         return custom_response([])->setStatusCode(201);
     }
 }

@@ -65,10 +65,12 @@ Route::middleware('auth:merchant-api')->group(function() {
     Route::post('upload-image', [UploadController::class, 'store']);
     Route::post('import/coupon/{coupon}/item', [UploadController::class, 'importCouponItem']);
     Route::post('import/recharge-card/{card}/item', [UploadController::class, 'importRechargeCard']);
+    Route::post('import/order/logistics', [UploadController::class, 'importLogistics']);
     Route::get('exports/order', [ExportController::class, 'order']);
     Route::get('export/{coupon}/item', [ExportController::class, 'couponItem']);
     Route::get('import/template/recharge-card', [ExportController::class, 'rechargeCardTemplate']);
     Route::get('import/template', [ExportController::class, 'couponItemTemplate']);
+    Route::get('import/template/order', [ExportController::class, 'order']);
 
     Route::resource('electronic-card-template', ElectronicCardTemplateController::class);
 });

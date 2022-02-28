@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Exports\CouponItemExport;
 use App\Exports\CouponItemTemplateExport;
+use App\Exports\OrderTemplateExport;
 use App\Exports\RechargeCardExport;
 use App\Exports\RechargeCardTemplateExport;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainController;
 use App\Models\Coupon;
 use App\Models\RechargeCard;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class ExportController extends Controller
+class ExportController extends MainController
 {
     /**
      * @param Coupon $coupon
@@ -29,6 +31,14 @@ class ExportController extends Controller
     public function couponItemTemplate(): BinaryFileResponse
     {
         return Excel::download(new CouponItemTemplateExport(), 'CouponItemTemplate.xlsx');
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function order(): BinaryFileResponse
+    {
+        return Excel::download(new OrderTemplateExport($this->user()), 'OrderTemplate.xlsx');
     }
 
     /**
