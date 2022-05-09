@@ -31,6 +31,7 @@ class MerchantRequest extends FormRequest
                 'required',
                 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|195|198|199)\d{8}$/',
             ],
+            'password'      => 'nullable|string|min:8',
             'region'        => 'required|array',
             'address'       => 'string|max:100|nullable',
             'status'        => 'required|in:0,1',
